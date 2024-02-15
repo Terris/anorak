@@ -2,11 +2,11 @@
   "name": "@repo/backend",
   "version": "1.0.0",
   "description": "",
+  "main": "index.ts",
   "scripts": {
     "build": "convex deploy",
     "dev": "convex dev",
-    "setup": "convex dev --until-success",
-    "lint": "eslint src/"
+    "setup": "convex dev --until-success"
   },
   "author": "",
   "license": "ISC",
