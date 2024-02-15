@@ -28,6 +28,7 @@
     },
     "lint": {},
     "@repo/backend#lint": {
+      "dependsOn": ["^lint"],
       "inputs": ["!*"]
     },
     "type-check": {},
