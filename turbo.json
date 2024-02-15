@@ -27,6 +27,9 @@
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {},
+    "@repo/backend#lint": {
+      "inputs": ["!*"]
+    },
     "type-check": {},
     "dev": {
       "cache": false,
