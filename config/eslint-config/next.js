@@ -12,7 +12,7 @@ const project = resolve(process.cwd(), "tsconfig.json");
  */
 
 module.exports = {
-  extends: ["next/core-web-vitals", "eslint-config-turbo"].map(require.resolve),
+  extends: ["eslint-config-turbo"].map(require.resolve),
   parserOptions: {
     project,
   },
