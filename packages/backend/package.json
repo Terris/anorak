@@ -5,7 +5,8 @@
   "scripts": {
     "build": "convex deploy",
     "dev": "convex dev",
-    "setup": "convex dev --until-success"
+    "setup": "convex dev --until-success",
+    "lint": "eslint src/"
   },
   "author": "",
   "license": "ISC",
