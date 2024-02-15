@@ -5,16 +5,18 @@ import { createContext, useContext } from "react";
 import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
 import { LoadingScreen } from "@repo/ui";
-import { OrganizationUserId } from "../OrganizationUsers/types";
+import type { OrganizationUserId } from "../OrganizationUsers/types";
+import type { OrganizationId } from "../Organizations/types";
+import type { UserId } from "./types";
 
 interface UserOrganization {
-  id: Id<"organizations">;
+  id: OrganizationId;
   name: string;
   slug: string;
   isOwner: boolean;
 }
 interface User {
-  id: Id<"users">;
+  id: UserId;
   name: string;
   email: string;
   roles?: string[];
