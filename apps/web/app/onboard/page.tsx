@@ -23,7 +23,9 @@ export default function OnboardOrgPage() {
     <>
       <Text className="text-lg pb-4">Name your organization</Text>
       <CreateOrganizationForm
-        onSuccess={(newOrgId) => router.push(`/onboard/spendcap`)}
+        onSuccess={() => {
+          router.push(`/onboard/spendcap`);
+        }}
       />
       <Text className="pt-6 text-center text-xs">Step 1 of 3</Text>
     </>

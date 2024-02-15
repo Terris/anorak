@@ -1,9 +1,9 @@
 import { NumericFormat } from "react-number-format";
-import { Input } from "./Input";
 import {
   convertAmountInCentsToDollars,
   convertAmountInputToCentsString,
 } from "@repo/utils";
+import { Input } from "./Input";
 
 interface CurrencyInputProps {
   name?: string;
@@ -24,9 +24,9 @@ export function CurrencyInput({
       value={convertAmountInCentsToDollars(value)}
       prefix="$"
       customInput={Input}
-      onChange={(e) =>
-        onChange(convertAmountInputToCentsString(e.currentTarget.value))
-      }
+      onChange={(e) => {
+        onChange(convertAmountInputToCentsString(e.currentTarget.value));
+      }}
       className={className}
     />
   );

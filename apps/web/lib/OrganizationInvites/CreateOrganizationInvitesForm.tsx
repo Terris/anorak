@@ -1,11 +1,12 @@
 import * as Yup from "yup";
 import { useMutation } from "convex/react";
-import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
+import type { FieldProps, FormikHelpers } from "formik";
+import { Field, Form, Formik } from "formik";
 import { api } from "@repo/backend/convex/_generated/api";
 import { Button, Text, Textarea } from "@repo/ui";
 import { useToast } from "@repo/ui/hooks";
 import { useMe } from "../Authorization/MeProvider";
-import { OrganizationId } from "../Organizations/types";
+import type { OrganizationId } from "../Organizations/types";
 
 const validationSchema = Yup.object().shape({
   emails: Yup.string().required("Please enter at least one email."),
@@ -71,9 +72,9 @@ export function CreateOrganizationInvitesForm({
                   {...field}
                   className="mr-2"
                 />
-                {meta.error && meta.touched && (
+                {meta.error && meta.touched ? (
                   <Text className="text-destructive">{meta.error}</Text>
-                )}
+                ) : null}
               </>
             )}
           </Field>

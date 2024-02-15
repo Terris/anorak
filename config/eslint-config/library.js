@@ -12,7 +12,10 @@ const project = resolve(process.cwd(), "tsconfig.json");
  */
 
 module.exports = {
-  extends: [],
+  extends: [
+    "@vercel/style-guide/eslint/node",
+    "@vercel/style-guide/eslint/typescript",
+  ].map(require.resolve),
   parserOptions: {
     project,
   },
@@ -31,4 +34,7 @@ module.exports = {
     },
   },
   ignorePatterns: ["node_modules/", "dist/"],
+  rules: {
+    "unicorn/filename-case": "off",
+  },
 };

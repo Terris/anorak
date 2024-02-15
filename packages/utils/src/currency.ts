@@ -12,6 +12,6 @@ export function convertAmountInCentsToDollars(amount: number): string {
   return (amount / 100).toFixed(2);
 }
 
-export function displayDollarAmount(amount: number | string) {
+export function displayDollarAmount(amount: number | string): string {
   return `$${amount}`;
 }

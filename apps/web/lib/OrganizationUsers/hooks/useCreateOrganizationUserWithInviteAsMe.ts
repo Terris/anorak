@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
 import { useMe } from "../../Authorization/MeProvider";
-import { OrganizationInviteId } from "../../OrganizationInvites/types";
-import { OrganizationUserId } from "../types";
+import type { OrganizationInviteId } from "../../OrganizationInvites/types";
+import type { OrganizationUserId } from "../types";
 
 interface CreateOrganizationUserArgs {
   inviteToken: OrganizationInviteId;
@@ -28,12 +28,14 @@ export function useCreateOrganizationUserWithInviteAsMe() {
     try {
       setIsLoading(true);
       const newOrganizationUserId = await createDBOrganizationUser({
-        inviteToken: inviteToken as OrganizationInviteId,
+        inviteToken,
         userId: me.id,
       });
       setNewOrganizationUserId(newOrganizationUserId);
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

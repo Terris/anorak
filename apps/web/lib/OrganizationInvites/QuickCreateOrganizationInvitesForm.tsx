@@ -5,7 +5,8 @@ import { useMutation } from "convex/react";
 import { Plus } from "lucide-react";
 import { api } from "@repo/backend/convex/_generated/api";
 import { useToast } from "@repo/ui/hooks";
-import { SimpleFormConfig, SimpleDialogForm, Button } from "@repo/ui";
+import type { SimpleFormConfig } from "@repo/ui";
+import { SimpleDialogForm, Button } from "@repo/ui";
 import { useMe } from "../Authorization/MeProvider";
 import { useOrg } from "../Organizations/OrganizationProvider";
 
@@ -23,7 +24,7 @@ const initialValues = {
   emails: "",
 };
 
-export const QuickCreateOrganizationInviteForm = () => {
+export function QuickCreateOrganizationInviteForm() {
   const { toast } = useToast();
   const { me } = useMe();
   const { org } = useOrg();
@@ -64,7 +65,7 @@ export const QuickCreateOrganizationInviteForm = () => {
   return (
     <SimpleDialogForm<CreateOrganizationInvitesFormFields>
       config={formConfig}
-      formTitle={"Add invites"}
+      formTitle="Add invites"
       renderTrigger={
         <Button size="sm">
           <Plus className="w-3 h-3 mr-2" />
@@ -73,4 +74,4 @@ export const QuickCreateOrganizationInviteForm = () => {
       }
     />
   );
-};
+}

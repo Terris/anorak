@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
-import { Id } from "@repo/backend/convex/_generated/dataModel";
+import type { Id } from "@repo/backend/convex/_generated/dataModel";
 import { Button, Text } from "@repo/ui";
 import { PrivatePageWrapper } from "../../lib/Authorization/PrivatePageWrapper";
 import { CreateRoomForm } from "../../lib/Rooms/CreateRoomForm";
@@ -34,13 +34,17 @@ export default function RoomsPage() {
       <Page className="flex flex-row">
         <div className="w-1/4 pr-4 sticky">
           <CreateRoomForm
-            onSuccess={(newRoomId) => setSelectedRoomId(newRoomId)}
+            onSuccess={(newRoomId) => {
+              setSelectedRoomId(newRoomId);
+            }}
           />
           <Text className="py-4 font-bold">Rooms</Text>
           {allRooms?.map((room) => (
             <Button
               key={room._id}
-              onClick={() => setSelectedRoomId(room._id)}
+              onClick={() => {
+                setSelectedRoomId(room._id);
+              }}
               className="w-full mb-4"
               variant={selectedRoomId === room._id ? "default" : "outline"}
             >
@@ -49,13 +53,15 @@ export default function RoomsPage() {
           ))}
         </div>
         <div className="w-3/4 pl-4">
-          {selectedRoom && (
+          {Boolean(selectedRoom) && (
             <>
               <div className="flex flex-row items-center justify-between pb-8">
                 <Text className="text-xl">{selectedRoom?.name}</Text>
                 <Button
                   variant="default"
-                  onClick={() => router.push(`/rooms/${selectedRoomId}`)}
+                  onClick={() => {
+                    router.push(`/rooms/${selectedRoomId}`);
+                  }}
                 >
                   Join room
                 </Button>

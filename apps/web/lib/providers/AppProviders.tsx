@@ -4,8 +4,8 @@ import { ConvexReactClient } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { ClerkProvider, useAuth } from "@clerk/nextjs";
 import { TooltipProvider } from "@repo/ui";
-import { MeProvider } from "../Authorization/MeProvider";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { MeProvider } from "../Authorization/MeProvider";
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 

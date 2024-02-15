@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import { ClipboardCopy, ClipboardCheck, ClipboardX } from "lucide-react";
-import { Button, ButtonProps } from "./Button";
+import { Button, type ButtonProps } from "./Button";
 
 interface CopyToClipboardButtonProps extends ButtonProps {
   textToCopy: string;
   callback?: () => void;
 }
 
-export const CopyToClipboardButton = ({
+export function CopyToClipboardButton({
   textToCopy,
   callback,
   ...props
-}: CopyToClipboardButtonProps) => {
+}: CopyToClipboardButtonProps) {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
   const setSuccess = () => {
@@ -45,20 +45,20 @@ export const CopyToClipboardButton = ({
 
   return (
     <Button
-      onClick={() =>
+      onClick={() => {
         navigator.clipboard
           .writeText(textToCopy)
-          .then((clipText) => {
+          .then(() => {
             setSuccess();
             callback?.();
           })
-          .catch((err) => {
+          .catch(() => {
             setError();
-          })
-      }
+          });
+      }}
       {...props}
     >
       {renderIcon()}
     </Button>
   );
-};
+}

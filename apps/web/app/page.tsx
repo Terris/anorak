@@ -28,7 +28,6 @@ export default function Home() {
       </div>
 
       <div className="pt-32">
-        <div className="w-1/3"></div>
         <div className="w-1/3">
           <Text className="text-xl font-bold">Simple Pricing</Text>
           <Text className="text-xl pb-4">

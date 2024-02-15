@@ -1,7 +1,7 @@
 import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
 import { api } from "@repo/backend/convex/_generated/api";
-import { OrganizationInviteId } from "../types";
+import type { OrganizationInviteId } from "../types";
 
 export function useInviteFromParams() {
   const { inviteToken } = useParams();

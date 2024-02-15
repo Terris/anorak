@@ -31,33 +31,29 @@ export function Masthead() {
         {/* <Text className="font-tuna ml-2 font-black">Cyclical</Text> */}
       </Link>
 
-      {isHomePath && (
-        <>
-          <div className="flex flex-row gap-8 mr-auto ml-4">
-            <Link href="/" className="font-bold">
-              How it works
-            </Link>
-            <Link href="/" className="font-bold">
-              Pricing
-            </Link>
-            <Link href="/" className="font-bold">
-              FAQs
-            </Link>
-            <Link href="/" className="font-bold">
-              Get Started
-            </Link>
-          </div>
-        </>
+      {Boolean(isHomePath) && (
+        <div className="flex flex-row gap-8 mr-auto ml-4">
+          <Link href="/" className="font-bold">
+            How it works
+          </Link>
+          <Link href="/" className="font-bold">
+            Pricing
+          </Link>
+          <Link href="/" className="font-bold">
+            FAQs
+          </Link>
+          <Link href="/" className="font-bold">
+            Get Started
+          </Link>
+        </div>
       )}
-      {me?.isAuthorizedUser && !!me?.organization?.slug && (
-        <>
-          <div className="flex flex-row gap-8 ml-auto mr-8">
-            <Link href={`/org/${me.organization.slug}`} className="font-bold">
-              Dashboard
-            </Link>
-          </div>
-        </>
-      )}
+      {me?.isAuthorizedUser && me.organization?.slug ? (
+        <div className="flex flex-row gap-8 ml-auto mr-8">
+          <Link href={`/org/${me.organization.slug}`} className="font-bold">
+            Dashboard
+          </Link>
+        </div>
+      ) : null}
 
       <div className="flex flex-row items-center justify-between gap-4">
         <ThemeModeToggle />

@@ -1,15 +1,19 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useEffect } from "react";
+import type { ReactNode } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { LoadingScreen } from "@repo/ui";
 import { useMe } from "../Authorization/MeProvider";
-import { OrganizationUserId } from "../OrganizationUsers/types";
-import { useInviteFromParams } from "./hooks/useInviteFromParams";
+import type { OrganizationUserId } from "../OrganizationUsers/types";
 import { useOrganizationUserAsMe } from "../OrganizationUsers/hooks/useOrganizationUserAsMe";
 import { useCreateOrganizationUserWithInviteAsMe } from "../OrganizationUsers/hooks/useCreateOrganizationUserWithInviteAsMe";
 import { useUpdateOrganizationUserAsMe } from "../OrganizationUsers/hooks/useUpdateOrganizationUser";
-import { OrganizationInviteId, OrganizationInviteWithOrgDoc } from "./types";
+import { useInviteFromParams } from "./hooks/useInviteFromParams";
+import type {
+  OrganizationInviteId,
+  OrganizationInviteWithOrgDoc,
+} from "./types";
 
 interface OrganizationInviteContextProps {
   inviteToken?: OrganizationInviteId;
@@ -36,9 +40,9 @@ interface OrganizationInviteProviderProps {
   children: ReactNode;
 }
 
-export const OrganizationInviteProvider = ({
+export function OrganizationInviteProvider({
   children,
-}: OrganizationInviteProviderProps) => {
+}: OrganizationInviteProviderProps) {
   const router = useRouter();
   const { me } = useMe();
 
@@ -71,15 +75,15 @@ export const OrganizationInviteProvider = ({
 
   // SYNC INVITE TO ORGANIZATION USER
   const canCreateOrgUser =
-    !!me &&
-    !!inviteToken &&
+    Boolean(me) &&
+    Boolean(inviteToken) &&
     !organizationUserIsLoading &&
     !organizationUser &&
     !createOrganizationUserIsLoading;
 
   useEffect(() => {
     if (!canCreateOrgUser) return;
-    createOrganizationUser({
+    void createOrganizationUser({
       inviteToken: inviteToken as OrganizationInviteId,
     });
   }, [canCreateOrgUser, createOrganizationUser, inviteToken]);
@@ -92,7 +96,9 @@ export const OrganizationInviteProvider = ({
     await updateOrganizationUser({
       organizationUserId: newOrganizationUserId,
       onboardingComplete: true,
-      onSuccess: () => router.push(`/org/${invite.organization.slug}`),
+      onSuccess: () => {
+        router.push(`/org/${invite.organization.slug}`);
+      },
     });
   }
 
@@ -113,7 +119,7 @@ export const OrganizationInviteProvider = ({
       {isLoading || !invite ? <LoadingScreen /> : children}
     </OrganizationInviteContext.Provider>
   );
-};
+}
 
 export const useOrganizationInvite = () => {
   const organizationInviteContext = useContext(OrganizationInviteContext);

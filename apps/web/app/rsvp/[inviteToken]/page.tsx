@@ -18,7 +18,7 @@ export default function RsvpPage() {
 
   useEffect(() => {
     if (meIsLoading) return;
-    if (me) router.push(`/rsvp/${inviteToken}/questionaire`);
+    if (me) router.push(`/rsvp/${inviteToken as string}/questionaire`);
   }, [inviteToken, me, meIsLoading, router]);
 
   if (meIsLoading || inviteIsLoading) return <LoadingScreen />;
@@ -91,7 +91,7 @@ export default function RsvpPage() {
           <Text className="pb-4">Set up is quick and painless.</Text>
           <SignUpButton
             mode="modal"
-            afterSignUpUrl={`/rsvp/${inviteToken}/questionaire`}
+            afterSignUpUrl={`/rsvp/${inviteToken as string}/questionaire`}
           >
             <Button className="w-full">Let&rsquo;s get started!</Button>
           </SignUpButton>

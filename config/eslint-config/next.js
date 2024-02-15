@@ -12,9 +12,13 @@ const project = resolve(process.cwd(), "tsconfig.json");
  */
 
 module.exports = {
-  extends: ["@next/eslint-plugin-next", "eslint-config-turbo"].map(
-    require.resolve
-  ),
+  extends: [
+    "@vercel/style-guide/eslint/node",
+    "@vercel/style-guide/eslint/typescript",
+    "@vercel/style-guide/eslint/browser",
+    "@vercel/style-guide/eslint/react",
+    "@vercel/style-guide/eslint/next",
+  ].map(require.resolve),
   parserOptions: {
     project,
   },
@@ -33,4 +37,12 @@ module.exports = {
     },
   },
   ignorePatterns: ["node_modules/", "dist/"],
+  rules: {
+    "unicorn/filename-case": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "import/no-default-export": "off",
+    "react/jsx-sort-props": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-shadow": "off",
+  },
 };

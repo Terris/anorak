@@ -28,7 +28,7 @@ export function PrivatePageWrapper({
   useEffect(() => {
     if (isLoading || !authorizedRoles) return;
     if (
-      !!authorizedRoles &&
+      Boolean(authorizedRoles) &&
       !authorizedRoles.every((role) => me?.roles?.includes(role))
     ) {
       router.push(`/`);
@@ -37,8 +37,8 @@ export function PrivatePageWrapper({
 
   const shouldShowLoading =
     isLoading ||
-    (!!authorizedRoles &&
-      !authorizedRoles.every((role) => me?.roles?.includes(role)));
+    (Boolean(authorizedRoles) &&
+      !authorizedRoles?.every((role) => me?.roles?.includes(role)));
 
   if (shouldShowLoading) return <LoadingScreen />;
   return children;

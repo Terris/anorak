@@ -12,7 +12,11 @@ const project = resolve(process.cwd(), "tsconfig.json");
  */
 
 module.exports = {
-  extends: [],
+  extends: [
+    "@vercel/style-guide/eslint/browser",
+    "@vercel/style-guide/eslint/typescript",
+    "@vercel/style-guide/eslint/react",
+  ].map(require.resolve),
   parserOptions: {
     project,
   },
@@ -31,5 +35,10 @@ module.exports = {
   },
   ignorePatterns: ["node_modules/", "dist/", ".eslintrc.js", "**/*.css"],
   // add rules configurations here
-  rules: {},
+  rules: {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "unicorn/filename-case": "off",
+    "react/jsx-sort-props": "off",
+  },
 };

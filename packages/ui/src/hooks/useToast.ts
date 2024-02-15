@@ -1,6 +1,5 @@
 // Inspired by react-hot-toast library
 import * as React from "react";
-
 import type { ToastActionElement, ToastProps } from "@repo/ui";
 
 const TOAST_LIMIT = 1;
@@ -47,7 +46,7 @@ type Action =
       toastId?: ToasterToast["id"];
     };
 
-interface State {
+interface ToasterState {
   toasts: ToasterToast[];
 }
 
@@ -62,14 +61,14 @@ const addToRemoveQueue = (toastId: string) => {
     toastTimeouts.delete(toastId);
     dispatch({
       type: "REMOVE_TOAST",
-      toastId: toastId,
+      toastId,
     });
   }, TOAST_REMOVE_DELAY);
 
   toastTimeouts.set(toastId, timeout);
 };
 
-export const reducer = (state: State, action: Action): State => {
+export const reducer = (state: ToasterState, action: Action): ToasterState => {
   switch (action.type) {
     case "ADD_TOAST":
       return {
@@ -124,9 +123,10 @@ export const reducer = (state: State, action: Action): State => {
   }
 };
 
-const listeners: Array<(state: State) => void> = [];
+type Listener = (state: ToasterState) => void;
+const listeners: Listener[] = [];
 
-let memoryState: State = { toasts: [] };
+let memoryState: ToasterState = { toasts: [] };
 
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
@@ -140,12 +140,16 @@ type Toast = Omit<ToasterToast, "id">;
 function toast({ ...props }: Toast) {
   const id = genId();
 
-  const update = (props: ToasterToast) =>
+  const update = (props: ToasterToast) => {
     dispatch({
       type: "UPDATE_TOAST",
       toast: { ...props, id },
     });
-  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
+  };
+
+  const dismiss = () => {
+    dispatch({ type: "DISMISS_TOAST", toastId: id });
+  };
 
   dispatch({
     type: "ADD_TOAST",
@@ -160,14 +164,14 @@ function toast({ ...props }: Toast) {
   });
 
   return {
-    id: id,
+    id,
     dismiss,
     update,
   };
 }
 
 function useToast() {
-  const [state, setState] = React.useState<State>(memoryState);
+  const [state, setState] = React.useState<ToasterState>(memoryState);
 
   React.useEffect(() => {
     listeners.push(setState);
@@ -182,7 +186,9 @@ function useToast() {
   return {
     ...state,
     toast,
-    dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
+    dismiss: (toastId?: string) => {
+      dispatch({ type: "DISMISS_TOAST", toastId });
+    },
   };
 }
 

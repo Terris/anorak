@@ -1,5 +1,6 @@
 import { useMutation } from "convex/react";
-import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
+import type { FieldProps, FormikHelpers } from "formik";
+import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { api } from "@repo/backend/convex/_generated/api";
 import { useToast } from "@repo/ui/hooks";
@@ -64,9 +65,9 @@ export function CreateOrganizationForm({
                     {...field}
                     className="mr-2"
                   />
-                  {meta.error && meta.touched && (
+                  {meta.error && meta.touched ? (
                     <Text className="text-destructive">{meta.error}</Text>
-                  )}
+                  ) : null}
                 </>
               )}
             </Field>

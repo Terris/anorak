@@ -1,9 +1,10 @@
 "use client";
 
-import { createContext, ReactNode, useContext } from "react";
+import type { ReactNode } from "react";
+import { createContext, useContext } from "react";
 import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
-import { Id } from "@repo/backend/convex/_generated/dataModel";
+import type { Id } from "@repo/backend/convex/_generated/dataModel";
 import { LoadingScreen } from "@repo/ui";
 
 interface UserOrganization {
@@ -44,7 +45,7 @@ interface MeProviderProps {
   children: ReactNode;
 }
 
-export const MeProvider = ({ children }: MeProviderProps) => {
+export function MeProvider({ children }: MeProviderProps) {
   // Authentication
   const { isLoading: authIsLoading, isAuthenticated } = useConvexAuth();
 
@@ -67,7 +68,7 @@ export const MeProvider = ({ children }: MeProviderProps) => {
       {authIsLoading ? <LoadingScreen /> : children}
     </MeContext.Provider>
   );
-};
+}
 
 export const useMe = () => {
   const meContext = useContext(MeContext);

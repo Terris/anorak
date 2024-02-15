@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FormikValues } from "formik";
+import { type FormikValues } from "formik";
 import { SimpleForm, type SimpleFormProps } from "./SimpleForm";
 import { Button } from "./Button";
 import {
@@ -44,13 +44,15 @@ export function SimpleDialogForm<CustomFormValues extends FormikValues>({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{formTitle}</DialogTitle>
-            {formDescription && (
+            {Boolean(formDescription) && (
               <DialogDescription>{formDescription}</DialogDescription>
             )}
           </DialogHeader>
           <SimpleForm<CustomFormValues>
             config={config}
-            onSuccess={() => handleOnSetOpen(false)}
+            onSuccess={() => {
+              handleOnSetOpen(false);
+            }}
           />
         </DialogContent>
       </DialogPortal>

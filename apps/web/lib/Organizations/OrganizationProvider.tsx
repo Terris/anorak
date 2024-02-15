@@ -1,12 +1,13 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useEffect } from "react";
+import type { ReactNode } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
 import { LoadingScreen } from "@repo/ui";
 import { useMe } from "../Authorization/MeProvider";
-import { OrganizationDoc } from "./types";
+import type { OrganizationDoc } from "./types";
 
 interface OrganizationContextProps {
   isLoading: boolean;
@@ -25,9 +26,7 @@ interface OrganizationProviderProps {
   children: ReactNode;
 }
 
-export const OrganizationProvider = ({
-  children,
-}: OrganizationProviderProps) => {
+export function OrganizationProvider({ children }: OrganizationProviderProps) {
   const router = useRouter();
   const { me, isLoading } = useMe();
 
@@ -52,7 +51,7 @@ export const OrganizationProvider = ({
       {orgIsLoading || !org ? <LoadingScreen /> : children}
     </OrganizationContext.Provider>
   );
-};
+}
 
 export const useOrg = () => {
   const organizationContext = useContext(OrganizationContext);

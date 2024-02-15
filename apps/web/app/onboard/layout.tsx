@@ -1,7 +1,7 @@
 "use client";
 
-import { OrganizationProvider } from "../../lib/Organizations/OrganizationProvider";
 import { Text } from "@repo/ui";
+import { OrganizationProvider } from "../../lib/Organizations/OrganizationProvider";
 import { Page } from "../../lib/layout/Page";
 
 export default function OnboardLayout({

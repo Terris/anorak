@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useOrganizationInvite } from "../../../../lib/OrganizationInvites/OrganizationInviteProvider";
 import { Button, Input, LoadingScreen, LogoDark, Text } from "@repo/ui";
+import { useOrganizationInvite } from "../../../../lib/OrganizationInvites/OrganizationInviteProvider";
 import { Page } from "../../../../lib/layout/Page";
 
 export default function RsvpProfilePage() {
@@ -70,7 +70,9 @@ export default function RsvpProfilePage() {
         {step === 2 ? (
           <Button
             className="w-1/2"
-            onClick={() => completeOnboarding()}
+            onClick={() => {
+              completeOnboarding();
+            }}
             disabled={isMutating}
           >
             Finish

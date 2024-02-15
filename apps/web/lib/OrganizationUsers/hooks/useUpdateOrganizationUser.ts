@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
 import { useMe } from "../../Authorization/MeProvider";
-import { OrganizationUserId } from "../types";
+import type { OrganizationUserId } from "../types";
 
 interface UpdateOrganizationUserArgs {
   organizationUserId: OrganizationUserId;
@@ -28,12 +28,14 @@ export function useUpdateOrganizationUserAsMe() {
     setIsLoading(true);
     try {
       await updateDBOrganizationUser({
-        organizationUserId: organizationUserId,
+        organizationUserId,
         onboardingComplete,
       });
       onSuccess?.();
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

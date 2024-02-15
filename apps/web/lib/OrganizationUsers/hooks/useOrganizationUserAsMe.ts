@@ -1,7 +1,7 @@
 import { useQuery } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
 import { useMe } from "../../Authorization/MeProvider";
-import { OrganizationId } from "../../Organizations/types";
+import type { OrganizationId } from "../../Organizations/types";
 
 export function useOrganizationUserAsMe({
   organizationId,
@@ -11,7 +11,7 @@ export function useOrganizationUserAsMe({
   const { me } = useMe();
 
   const organizationUserArgs =
-    !!me && !!organizationId ? { organizationId, userId: me.id } : "skip";
+    me && organizationId ? { organizationId, userId: me.id } : "skip";
 
   const organizationUser = useQuery(
     api.organizationUsers.sessionedFindOneByOrgIdUserId,

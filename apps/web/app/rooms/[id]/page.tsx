@@ -17,7 +17,7 @@ import { api } from "@repo/backend/convex/_generated/api";
 import { LoadingScreen, Text } from "@repo/ui";
 import { useMe } from "../../../lib/Authorization/MeProvider";
 import { PrivatePageWrapper } from "../../../lib/Authorization/PrivatePageWrapper";
-import { RoomId } from "../../../lib/Rooms/types";
+import type { RoomId } from "../../../lib/Rooms/types";
 
 export default function RoomsPage() {
   const { me } = useMe();
@@ -27,7 +27,7 @@ export default function RoomsPage() {
   const roomId = params.id;
   const name = `${me?.name}#${me?.id}`;
   const [token, setToken] = useState("");
-  const [tokenError, setTokenError] = useState(null);
+  const [tokenError, setTokenError] = useState<string | null>(null);
 
   const room = useQuery(api.rooms.sessionedFindById, {
     id: params.id as RoomId,
@@ -38,16 +38,19 @@ export default function RoomsPage() {
   const leaveRoom = useMutation(api.roomUsers.sessionedDisconnectUserByRoomId);
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       if (!me) return;
       try {
         const resp = await fetch(
-          `/api/get-participant-token?room=${roomId}&username=${name}`
+          `/api/get-participant-token?room=${roomId as string}&username=${name}`
         );
-        const data = await resp.json();
+
+        const data = (await resp.json()) as { token: string };
         setToken(data.token);
-      } catch (e: any) {
-        setTokenError(e.message);
+      } catch (e: unknown) {
+        const errorMessage =
+          e instanceof Error ? e.message : "An error occurred";
+        setTokenError(errorMessage);
       }
     })();
   }, [me, name, roomId]);
@@ -55,7 +58,7 @@ export default function RoomsPage() {
   useEffect(() => {
     return () => {
       if (me) {
-        leaveRoom({ roomId: params.id as RoomId, userId: me.id });
+        void leaveRoom({ roomId: params.id as RoomId, userId: me.id });
       }
     };
   }, [leaveRoom, me, params.id]);
@@ -81,11 +84,10 @@ export default function RoomsPage() {
 
   return (
     <PrivatePageWrapper>
-      <div className="w-full flex flex-row items-center justify-between py-2 px-8 border-b"></div>
       <div className="w-full py-4 px-8">
         <LiveKitRoom
-          video={true}
-          audio={true}
+          video
+          audio
           token={token}
           serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
           // Use the default LiveKit theme for nice styles.
@@ -113,17 +115,15 @@ function VideoConference() {
   );
 
   return (
-    <>
-      <GridLayout
-        tracks={tracks}
-        style={{
-          height: "calc(90vh - var(--lk-control-bar-height))",
-        }}
-      >
-        {/* The GridLayout accepts zero or one child. The child is used
+    <GridLayout
+      tracks={tracks}
+      style={{
+        height: "calc(90vh - var(--lk-control-bar-height))",
+      }}
+    >
+      {/* The GridLayout accepts zero or one child. The child is used
       as a template to render all passed in tracks. */}
-        <ParticipantTile />
-      </GridLayout>
-    </>
+      <ParticipantTile />
+    </GridLayout>
   );
 }

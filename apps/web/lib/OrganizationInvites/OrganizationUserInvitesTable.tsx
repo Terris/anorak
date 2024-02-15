@@ -1,8 +1,8 @@
-import { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@repo/ui";
 import { formatDate } from "@repo/utils";
 import { DeleteOrganizationInviteButton } from "./DeleteOrganizationInviteButton";
-import { OrganizationInviteDoc } from "./types";
+import type { OrganizationInviteDoc } from "./types";
 
 type OrganizationInviteRow = OrganizationInviteDoc;
 
@@ -28,11 +28,10 @@ const columns: ColumnDef<OrganizationInviteRow>[] = [
   },
 ];
 
-export const OrganizationInvitesTable = ({
+export function OrganizationInvitesTable({
   invites,
 }: {
   invites: OrganizationInviteDoc[];
-}) => {
-  if (!invites) return null;
+}) {
   return <DataTable columns={columns} data={invites} />;
-};
+}

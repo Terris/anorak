@@ -9,7 +9,7 @@ export default function OnboardInvitesPage() {
   const router = useRouter();
   const { org, isLoading } = useOrg();
 
-  if (isLoading) return null;
+  if (isLoading || !org) return null;
 
   return (
     <>
@@ -17,10 +17,15 @@ export default function OnboardInvitesPage() {
         Invite your team. These users will not have access to billing or org
         settings.
       </Text>
+
       <CreateOrganizationInvitesForm
-        orgId={org!._id}
-        onSuccess={() => router.push(`/dashboard`)}
-        onSkip={() => router.push(`/dashboard`)}
+        orgId={org._id}
+        onSuccess={() => {
+          router.push(`/dashboard`);
+        }}
+        onSkip={() => {
+          router.push(`/dashboard`);
+        }}
       />
       <Text className="pt-12 text-center text-xs">Step 3 of 3</Text>
     </>

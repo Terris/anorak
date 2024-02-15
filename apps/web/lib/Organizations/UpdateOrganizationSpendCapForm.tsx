@@ -1,12 +1,13 @@
 import * as Yup from "yup";
 import { useMutation } from "convex/react";
-import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
+import type { FieldProps, FormikHelpers } from "formik";
+import { Field, Form, Formik } from "formik";
 import { api } from "@repo/backend/convex/_generated/api";
 import { useToast } from "@repo/ui/hooks";
 import { Button, CurrencyInput, Text } from "@repo/ui";
 import { useMe } from "../Authorization/MeProvider";
 import { useOrg } from "./OrganizationProvider";
-import { OrganizationId } from "./types";
+import type { OrganizationId } from "./types";
 
 const validationSchema = Yup.object().shape({
   spendCapInCents: Yup.string().required("Spending cap is required."),
@@ -21,7 +22,6 @@ interface UpdateOrgSpendCapFormProps {
   onSuccess?: () => void;
 }
 export function UpdateOrgSpendCapForm({
-  orgId,
   onSuccess,
 }: UpdateOrgSpendCapFormProps) {
   const { toast } = useToast();
@@ -61,7 +61,7 @@ export function UpdateOrgSpendCapForm({
   return (
     <Formik<UpdateOrgSpendCapFormValues>
       initialValues={{
-        spendCapInCents: String(org?.spendCapInCents) ?? "",
+        spendCapInCents: String(org?.spendCapInCents),
       }}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -76,12 +76,12 @@ export function UpdateOrgSpendCapForm({
                     {...field}
                     className="mr-2"
                     onChange={(v) => {
-                      form.setFieldValue(field.name, v);
+                      void form.setFieldValue(field.name, v);
                     }}
                   />
-                  {meta.error && meta.touched && (
+                  {meta.error && meta.touched ? (
                     <Text className="text-destructive">{meta.error}</Text>
-                  )}
+                  ) : null}
                 </div>
               )}
             </Field>

@@ -6,4 +6,5 @@ module.exports = {
   parserOptions: {
     project: true,
   },
+  ignorePatterns: [".eslintrc.js", "postcss.config.js"],
 };

@@ -1,11 +1,12 @@
 import { useMutation } from "convex/react";
-import { Field, FieldProps, Form, Formik, FormikHelpers } from "formik";
+import type { FieldProps, FormikHelpers } from "formik";
+import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { PlusIcon } from "lucide-react";
 import { api } from "@repo/backend/convex/_generated/api";
 import { useToast } from "@repo/ui/hooks";
 import { Button, Input } from "@repo/ui";
-import { RoomId } from "./types";
+import type { RoomId } from "./types";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()

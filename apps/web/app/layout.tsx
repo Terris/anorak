@@ -1,7 +1,7 @@
-import { AppProviders } from "../lib/providers/AppProviders";
-import { Masthead, Main } from "../lib/layout";
 import { cn } from "@repo/utils";
 import { Toaster } from "@repo/ui";
+import { AppProviders } from "../lib/providers/AppProviders";
+import { Masthead, Main } from "../lib/layout";
 import "@repo/ui/globals.css";
 import "./app.css";
 
