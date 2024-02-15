@@ -1,5 +1,5 @@
 "use client";
-import { Text } from "../../../../../lib/ui";
+import { Text } from "@repo/ui";
 
 export default function DashboardPage() {
   return (

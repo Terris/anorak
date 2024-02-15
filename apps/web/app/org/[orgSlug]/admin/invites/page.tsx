@@ -1,11 +1,11 @@
 "use client";
 
+import { useQuery } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
+import { Text } from "@repo/ui";
 import { OrganizationInvitesTable } from "../../../../../lib/OrganizationInvites/OrganizationUserInvitesTable";
 import { QuickCreateOrganizationInviteForm } from "../../../../../lib/OrganizationInvites/QuickCreateOrganizationInvitesForm";
 import { useOrg } from "../../../../../lib/Organizations/OrganizationProvider";
-import { Text } from "../../../../../lib/ui";
-import { useQuery } from "convex/react";
 
 export default function DashboardPage() {
   const { isLoading, org } = useOrg();
