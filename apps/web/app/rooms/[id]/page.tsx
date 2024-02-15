@@ -14,7 +14,7 @@ import {
 } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { api } from "@repo/backend/convex/_generated/api";
-import { Breadcrumbs, LoadingScreen, Text } from "@repo/ui";
+import { LoadingScreen, Text } from "@repo/ui";
 import { useMe } from "../../../lib/Authorization/MeProvider";
 import { PrivatePageWrapper } from "../../../lib/Authorization/PrivatePageWrapper";
 import { RoomId } from "../../../lib/Rooms/types";
@@ -81,17 +81,7 @@ export default function RoomsPage() {
 
   return (
     <PrivatePageWrapper>
-      <div className="w-full flex flex-row items-center justify-between py-2 px-8 border-b">
-        <Breadcrumbs
-          breadcrumbs={[
-            { href: "/rooms", label: "Rooms" },
-            {
-              href: `/rooms/${params.id}`,
-              label: room.name,
-            },
-          ]}
-        />
-      </div>
+      <div className="w-full flex flex-row items-center justify-between py-2 px-8 border-b"></div>
       <div className="w-full py-4 px-8">
         <LiveKitRoom
           video={true}
