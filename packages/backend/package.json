@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "build": "convex deploy",
     "dev": "convex dev",
     "setup": "convex dev --until-success"
   },
