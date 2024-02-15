@@ -1,7 +1,7 @@
 "use node";
 
 import { Webhook } from "svix";
-import type { WebhookEvent, UserJSON } from "@clerk/clerk-sdk-node";
+import type { WebhookEvent } from "@clerk/clerk-sdk-node";
 import { ConvexError, v } from "convex/values";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
@@ -41,30 +41,31 @@ export const internalHandleClerkWebhook = internalAction({
 
       // Handle the event
       switch (event.type) {
-        case "user.created": {
-          const eventData = event.data as UserJSON;
-          const email = eventData?.email_addresses[0]?.email_address;
-          if (`!email`) throw new ConvexError("No email found in event data");
-          const name = `${eventData?.first_name} ${eventData?.last_name}`;
+        case "user.created":
+          {
+            const eventData = event.data;
+            const email = eventData.email_addresses[0]?.email_address;
+            const name = `${eventData.first_name} ${eventData.last_name}`;
 
-          // Check for whitelisted user email
-          const emailIsWhitelisted = await ctx.runQuery(
-            internal.userWhitelists.publicFindByEmail,
-            {
+            // Check for whitelisted user email
+            const emailIsWhitelisted = await ctx.runQuery(
+              internal.userWhitelists.publicFindByEmail,
+              {
+                email,
+              }
+            );
+
+            // Create db user
+            await ctx.runMutation(internal.users.systemSaveNewClerkUser, {
+              clerkId: eventData.id,
               email,
-            }
-          );
-
-          // Create db user
-          await ctx.runMutation(internal.users.systemSaveNewClerkUser, {
-            clerkId: eventData.id,
-            email,
-            name,
-            roles: emailIsWhitelisted ? ["user"] : [],
-          });
-        }
-        default: {
-        }
+              name,
+              roles: emailIsWhitelisted ? ["user"] : [],
+            });
+          }
+          break;
+        default:
+          null;
       }
 
       await ctx.runMutation(internal.webhooks.systemLogWebhook, {
@@ -73,8 +74,9 @@ export const internalHandleClerkWebhook = internalAction({
       });
 
       return { success: true };
-    } catch (error: any) {
-      return { success: false, error: error.message };
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown";
+      return { success: false, error: errorMessage };
     }
   },
 });

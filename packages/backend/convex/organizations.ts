@@ -1,5 +1,6 @@
 import { v } from "convex/values";
-import { MutationCtx, mutation, query } from "./_generated/server";
+import type { MutationCtx } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { validateIdentity } from "./lib/authorization";
 import { validateOrganizationOwnership } from "./lib/ownership";
 
@@ -8,7 +9,7 @@ export const sessionedFindByOwnerId = query({
   args: { userId: v.id("users") },
   handler: async (ctx, { userId }) => {
     await validateIdentity(ctx);
-    return await ctx.db
+    return ctx.db
       .query("organizations")
       .withIndex("by_owner_id", (q) => q.eq("ownerId", userId))
       .first();
@@ -24,7 +25,7 @@ export const sessionedFindByOrganizationUser = query({
       .withIndex("by_user_id", (q) => q.eq("userId", user._id))
       .first();
     if (!orgUser) return null;
-    return await ctx.db.get(orgUser.organizationId);
+    return ctx.db.get(orgUser.organizationId);
   },
 });
 
@@ -60,7 +61,7 @@ export const sessionedUpdateSpendCapAsOrgOwner = mutation({
       userId: user._id,
       organizationId,
     });
-    return await ctx.db.patch(organizationId, { spendCapInCents });
+    return ctx.db.patch(organizationId, { spendCapInCents });
   },
 });
 

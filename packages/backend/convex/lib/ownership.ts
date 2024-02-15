@@ -1,6 +1,6 @@
 import { ConvexError } from "convex/values";
-import { Id } from "../_generated/dataModel";
-import { MutationCtx, QueryCtx } from "../_generated/server";
+import type { Id } from "../_generated/dataModel";
+import type { MutationCtx, QueryCtx } from "../_generated/server";
 
 export const validateOrganizationOwnership = async ({
   ctx,

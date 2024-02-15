@@ -26,11 +26,10 @@ http.route({
       return new Response(null, {
         status: 200,
       });
-    } else {
-      return new Response("Webhook Error", {
-        status: 400,
-      });
     }
+    return new Response("Webhook Error", {
+      status: 400,
+    });
   }),
 });
 

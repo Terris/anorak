@@ -17,5 +17,11 @@
     "resend": "^3.1.0",
     "stripe": "^14.16.0",
     "svix": "^1.17.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^20.10.6",
+    "typescript": "^5.3.3"
   }
 }

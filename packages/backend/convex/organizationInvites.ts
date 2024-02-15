@@ -1,7 +1,7 @@
 import { ConvexError, v } from "convex/values";
+import { asyncMap } from "convex-helpers";
 import { mutation, query } from "./_generated/server";
 import { validateIdentity } from "./lib/authorization";
-import { asyncMap } from "convex-helpers";
 import { internal } from "./_generated/api";
 import { validateOrganizationOwnership } from "./lib/ownership";
 
@@ -35,7 +35,7 @@ export const sessionedFindAllByOrganizationIdAsOrgOwner = query({
       organizationId,
     });
 
-    return await ctx.db
+    return ctx.db
       .query("organizationInvites")
       .withIndex("by_organization_id", (q) =>
         q.eq("organizationId", organizationId)
@@ -60,7 +60,7 @@ export const sessionedCreateManyAsOrgOwner = mutation({
     await asyncMap(emailList, async (email) => {
       const organizationInviteId = await ctx.db.insert("organizationInvites", {
         email,
-        organizationId: organizationId,
+        organizationId,
         role: "user",
       });
       await ctx.scheduler.runAfter(
@@ -89,6 +89,6 @@ export const sessionedDeleteOrganizationInviteAsOrgOwner = mutation({
       userId: user._id,
       organizationId,
     });
-    return await ctx.db.delete(inviteId);
+    return ctx.db.delete(inviteId);
   },
 });

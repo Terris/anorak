@@ -1,6 +1,5 @@
 import { v } from "convex/values";
 import { internalMutation, internalQuery, query } from "./_generated/server";
-import { validateIdentity } from "./lib/authorization";
 
 // SESSIONED USERS ONLY
 export const sessionedFindByContextIdentity = query({
@@ -8,7 +7,7 @@ export const sessionedFindByContextIdentity = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) return null;
-    return await ctx.db
+    return ctx.db
       .query("users")
       .withIndex("by_token", (q) =>
         q.eq("tokenIdentifier", identity.tokenIdentifier)
@@ -21,7 +20,7 @@ export const sessionedFindByContextIdentity = query({
 export const systemFindById = internalQuery({
   args: { id: v.id("users") },
   handler: async (ctx, { id }) => {
-    return await ctx.db.get(id);
+    return ctx.db.get(id);
   },
 });
 
@@ -51,7 +50,7 @@ export const systemSaveNewClerkUser = internalMutation({
     const newUserId = await ctx.db.insert("users", {
       name,
       email,
-      tokenIdentifier: tokenIdentifier,
+      tokenIdentifier,
       roles,
     });
     return newUserId;

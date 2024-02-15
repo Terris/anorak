@@ -18,6 +18,7 @@ module.exports = {
     "@vercel/style-guide/eslint/browser",
     "@vercel/style-guide/eslint/react",
     "@vercel/style-guide/eslint/next",
+    "./base",
   ].map(require.resolve),
   parserOptions: {
     project,
@@ -37,12 +38,5 @@ module.exports = {
     },
   },
   ignorePatterns: ["node_modules/", "dist/"],
-  rules: {
-    "unicorn/filename-case": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "import/no-default-export": "off",
-    "react/jsx-sort-props": "off",
-    "@typescript-eslint/no-misused-promises": "off",
-    "@typescript-eslint/no-shadow": "off",
-  },
+  rules: {},
 };

@@ -1,3 +1,4 @@
+/* eslint no-irregular-whitespace: off  -- email templates are cray cray */
 interface OrganizationEmailHTMLProps {
   toEmail: string;
   orgName: string;

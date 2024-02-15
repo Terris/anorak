@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 import { createContext, useContext } from "react";
 import { useConvexAuth, useQuery } from "convex/react";
 import { api } from "@repo/backend/convex/_generated/api";
-import type { Id } from "@repo/backend/convex/_generated/dataModel";
 import { LoadingScreen } from "@repo/ui";
+import { OrganizationUserId } from "../OrganizationUsers/types";
 
 interface UserOrganization {
   id: Id<"organizations">;
@@ -19,7 +19,7 @@ interface User {
   email: string;
   roles?: string[];
   isAuthorizedUser: boolean;
-  orgUserId?: Id<"organizationUsers"> | null;
+  orgUserId?: OrganizationUserId | null;
   organization?: UserOrganization | null;
 }
 

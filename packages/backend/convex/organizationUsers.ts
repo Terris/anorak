@@ -37,7 +37,7 @@ export const sessionedCreateOneByInviteTokenUserId = mutation({
     if (user.email !== invite.email)
       throw new Error("User email does not match invite");
 
-    return await ctx.db.insert("organizationUsers", {
+    return ctx.db.insert("organizationUsers", {
       userId: user._id,
       organizationId: invite.organizationId,
       onboardingComplete: false,
@@ -58,6 +58,6 @@ export const sessionedUpdateOrganizationUserAsOwner = mutation({
       userId: user._id,
       organizationUserId,
     });
-    return await ctx.db.patch(organizationUserId, { onboardingComplete });
+    return ctx.db.patch(organizationUserId, { onboardingComplete });
   },
 });

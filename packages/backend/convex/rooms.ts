@@ -1,7 +1,7 @@
 import { ConvexError, v } from "convex/values";
+import { asyncMap } from "convex-helpers";
 import { mutation, query } from "./_generated/server";
 import { validateIdentity } from "./lib/authorization";
-import { asyncMap } from "convex-helpers";
 
 // SESSIONED USERS ONLY
 export const sessionedFindAll = query({
@@ -43,11 +43,10 @@ export const sessionedDeleteById = mutation({
       .withIndex("by_room_id", (q) => q.eq("roomId", id))
       .collect();
 
-    await asyncMap(
-      roomUsersToDelete,
-      async (roomUser) => await ctx.db.delete(roomUser._id)
+    await asyncMap(roomUsersToDelete, async (roomUser) =>
+      ctx.db.delete(roomUser._id)
     );
 
-    return await ctx.db.delete(id);
+    return ctx.db.delete(id);
   },
 });

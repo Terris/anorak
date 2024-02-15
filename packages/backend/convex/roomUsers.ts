@@ -1,7 +1,7 @@
 import { ConvexError, v } from "convex/values";
+import { asyncMap } from "convex-helpers";
 import { mutation, query } from "./_generated/server";
 import { validateIdentity } from "./lib/authorization";
-import { asyncMap } from "convex-helpers";
 
 const ROOM_USER_STATUS = {
   CONNECTED: "connected",
@@ -18,7 +18,7 @@ export const sessionedFindAllByRoomId = query({
       .query("roomUsers")
       .withIndex("by_room_id", (q) => q.eq("roomId", roomId))
       .collect();
-    return await asyncMap(allRoomUsers, async (roomUser) => {
+    return asyncMap(allRoomUsers, async (roomUser) => {
       const user = await ctx.db.get(roomUser.userId);
       return { ...roomUser, user };
     });
@@ -38,7 +38,7 @@ export const sessionedCreateAndJoinUserByRoomId = mutation({
       )
       .first();
     if (existingRoomUser) {
-      return await ctx.db.patch(existingRoomUser._id, {
+      return ctx.db.patch(existingRoomUser._id, {
         status: ROOM_USER_STATUS.CONNECTED,
       });
     }
@@ -63,7 +63,7 @@ export const sessionedConnectUserByRoomId = mutation({
       )
       .first();
     if (!existingRoomUser) throw new ConvexError("User not found in room");
-    return await ctx.db.patch(existingRoomUser._id, {
+    return ctx.db.patch(existingRoomUser._id, {
       status: ROOM_USER_STATUS.CONNECTED,
     });
   },
@@ -82,7 +82,7 @@ export const sessionedDisconnectUserByRoomId = mutation({
       )
       .first();
     if (!existingRoomUser) throw new ConvexError("User not found in room");
-    return await ctx.db.patch(existingRoomUser._id, {
+    return ctx.db.patch(existingRoomUser._id, {
       status: ROOM_USER_STATUS.DISCONNECTED,
     });
   },

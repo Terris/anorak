@@ -17,7 +17,6 @@ import type {
 import type * as http from "../http.js";
 import type * as lib_authorization from "../lib/authorization.js";
 import type * as lib_ownership from "../lib/ownership.js";
-import type * as lib_relationships from "../lib/relationships.js";
 import type * as lib_stripe from "../lib/stripe.js";
 import type * as lib_transactional from "../lib/transactional.js";
 import type * as me from "../me.js";
@@ -44,7 +43,6 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   "lib/authorization": typeof lib_authorization;
   "lib/ownership": typeof lib_ownership;
-  "lib/relationships": typeof lib_relationships;
   "lib/stripe": typeof lib_stripe;
   "lib/transactional": typeof lib_transactional;
   me: typeof me;
