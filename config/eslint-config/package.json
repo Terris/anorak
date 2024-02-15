@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
-    "eslint-config-turbo": "^1.11.3"
+    "eslint-config-turbo": "^1.11.3",
+    "@next/eslint-plugin-next": "^14.1.0"
   }
 }

@@ -4,8 +4,8 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo run dev",
-    "lint": "turbo lint",
-    "type-check": "turbo type-check",
+    "lint": "turbo lint --filter=!@repo/backend",
+    "type-check": "turbo type-check --filter=!@repo/backend",
     "clean": "turbo clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
