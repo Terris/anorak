@@ -2,8 +2,8 @@
   "name": "cyclical-mono",
   "private": true,
   "scripts": {
-    "build": "turbo build --filter=!@repo/transactional",
-    "dev": "turbo run dev --filter=!@repo/transactional",
+    "build": "turbo build",
+    "dev": "turbo run dev",
     "lint": "turbo lint",
     "type-check": "turbo type-check",
     "clean": "turbo clean",
