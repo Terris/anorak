@@ -43,8 +43,8 @@ export const internalHandleClerkWebhook = internalAction({
       switch (event.type) {
         case "user.created": {
           const eventData = event.data as UserJSON;
-          const email = eventData.email_addresses[0].email_address;
-          const name = `${eventData.first_name} ${eventData.last_name}`;
+          const email = eventData?.email_addresses[0]?.email_address;
+          const name = `${eventData?.first_name} ${eventData?.last_name}`;
 
           // Check for whitelisted user email
           const emailIsWhitelisted = await ctx.runQuery(
