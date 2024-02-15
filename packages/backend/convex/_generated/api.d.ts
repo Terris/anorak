@@ -20,7 +20,6 @@ import type * as lib_ownership from "../lib/ownership.js";
 import type * as lib_relationships from "../lib/relationships.js";
 import type * as lib_stripe from "../lib/stripe.js";
 import type * as lib_transactional from "../lib/transactional.js";
-import type * as lib_utils from "../lib/utils.js";
 import type * as me from "../me.js";
 import type * as organizationInviteActions from "../organizationInviteActions.js";
 import type * as organizationInvites from "../organizationInvites.js";
@@ -48,7 +47,6 @@ declare const fullApi: ApiFromModules<{
   "lib/relationships": typeof lib_relationships;
   "lib/stripe": typeof lib_stripe;
   "lib/transactional": typeof lib_transactional;
-  "lib/utils": typeof lib_utils;
   me: typeof me;
   organizationInviteActions: typeof organizationInviteActions;
   organizationInvites: typeof organizationInvites;
