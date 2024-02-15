@@ -44,6 +44,7 @@ export const internalHandleClerkWebhook = internalAction({
         case "user.created": {
           const eventData = event.data as UserJSON;
           const email = eventData?.email_addresses[0]?.email_address;
+          if (`!email`) throw new ConvexError("No email found in event data");
           const name = `${eventData?.first_name} ${eventData?.last_name}`;
 
           // Check for whitelisted user email
