@@ -3,17 +3,17 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
-import { api, type Id } from "@repo/convex";
+import { api } from "@repo/convex";
 import { Button, Text } from "@repo/ui";
 import { PrivatePageWrapper } from "../../lib/Authorization/PrivatePageWrapper";
 import { CreateRoomForm } from "../../lib/Rooms/CreateRoomForm";
 import { Page } from "../../lib/layout/Page";
-// import type { RoomId } from "../../lib/Rooms/types";
+import type { RoomId } from "../../lib/Rooms/types";
 
 export default function RoomsPage() {
   const router = useRouter();
   const allRooms = useQuery(api.rooms.sessionedFindAll);
-  const [selectedRoomId, setSelectedRoomId] = useState<Id<"rooms"> | null>();
+  const [selectedRoomId, setSelectedRoomId] = useState<RoomId | null>();
   const selectedRoom = allRooms?.find((room) => room._id === selectedRoomId);
 
   const selectedRoomUsersArgs = selectedRoomId
