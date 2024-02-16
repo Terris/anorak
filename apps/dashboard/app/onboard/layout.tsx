@@ -1,8 +1,7 @@
 "use client";
 
 import { Text } from "@repo/ui";
-import { OrganizationProvider } from "../../lib/Organizations/OrganizationProvider";
-import { Page } from "../../lib/layout/Page";
+import { MeOrganizationProvider } from "@repo/organizations";
 
 export default function OnboardLayout({
   children,
@@ -10,18 +9,16 @@ export default function OnboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Page>
-      <div className="my-8 mx-auto md:w-1/3">
-        <Text as="h2" className="text-2xl font-tuna">
-          We&rsquo;re so happy you&rsquo;re with us.
-        </Text>
-        <Text className="text-lg">
-          Just a little housekeeping, and you&rsquo;ll be on your way to a more
-          healthy workplace.
-        </Text>
-        <div className="my-8" />
-        <OrganizationProvider>{children}</OrganizationProvider>
-      </div>
-    </Page>
+    <div className="my-8 mx-auto md:w-1/3">
+      <Text as="h2" className="text-2xl font-tuna">
+        We&rsquo;re so happy you&rsquo;re with us.
+      </Text>
+      <Text className="text-lg">
+        Just a little housekeeping, and you&rsquo;ll be on your way to a more
+        healthy workplace.
+      </Text>
+      <div className="my-8" />
+      <MeOrganizationProvider>{children}</MeOrganizationProvider>
+    </div>
   );
 }

@@ -2,15 +2,17 @@
 
 import { useRouter } from "next/navigation";
 import { Text } from "@repo/ui";
-import { useOrg } from "../../../lib/Organizations/OrganizationProvider";
-import { UpdateOrgSpendCapForm } from "../../../lib/Organizations/UpdateOrganizationSpendCapForm";
-import type { OrganizationId } from "../../../lib/Organizations/types";
+import {
+  useMeOrganization,
+  UpdateOrgSpendCapForm,
+  type OrganizationId,
+} from "@repo/organizations";
 
 export default function OnboardSpendCapPage() {
   const router = useRouter();
-  const { org, isLoading } = useOrg();
+  const { meOrganization, isLoading } = useMeOrganization();
 
-  if (isLoading || !org) return null;
+  if (isLoading || !meOrganization) return null;
 
   return (
     <>
@@ -18,7 +20,7 @@ export default function OnboardSpendCapPage() {
         What is your monthly spending cap? You can always change this later.
       </Text>
       <UpdateOrgSpendCapForm
-        orgId={org._id as OrganizationId}
+        orgId={meOrganization._id as OrganizationId}
         onSuccess={() => {
           router.push(`/onboard/invites`);
         }}

@@ -1,4 +1,4 @@
-import { OrganizationInviteProvider } from "../../lib/OrganizationInvites/OrganizationInviteProvider";
+import { OrganizationInviteProvider } from "@repo/organizations/invites";
 
 export default function RsvpLayout({
   children,

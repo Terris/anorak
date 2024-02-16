@@ -5,9 +5,7 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@repo/convex";
 import { Button, Text } from "@repo/ui";
-import { PrivatePageWrapper } from "../../lib/Authorization/PrivatePageWrapper";
 import { CreateRoomForm } from "../../lib/Rooms/CreateRoomForm";
-import { Page } from "../../lib/layout/Page";
 import type { RoomId } from "../../lib/Rooms/types";
 
 export default function RoomsPage() {
@@ -30,52 +28,50 @@ export default function RoomsPage() {
   }, [allRooms, selectedRoomId]);
 
   return (
-    <PrivatePageWrapper>
-      <Page className="flex flex-row">
-        <div className="w-1/4 pr-4 sticky">
-          <CreateRoomForm
-            onSuccess={(newRoomId) => {
-              setSelectedRoomId(newRoomId);
+    <div className="w-full p-8 flex flex-row">
+      <div className="w-1/4 pr-4 sticky">
+        <CreateRoomForm
+          onSuccess={(newRoomId) => {
+            setSelectedRoomId(newRoomId);
+          }}
+        />
+        <Text className="py-4 font-bold">Rooms</Text>
+        {allRooms?.map((room) => (
+          <Button
+            key={room._id}
+            onClick={() => {
+              setSelectedRoomId(room._id);
             }}
-          />
-          <Text className="py-4 font-bold">Rooms</Text>
-          {allRooms?.map((room) => (
-            <Button
-              key={room._id}
-              onClick={() => {
-                setSelectedRoomId(room._id);
-              }}
-              className="w-full mb-4"
-              variant={selectedRoomId === room._id ? "default" : "outline"}
-            >
-              {room.name}
-            </Button>
-          ))}
-        </div>
-        <div className="w-3/4 pl-4">
-          {Boolean(selectedRoom) && (
-            <>
-              <div className="flex flex-row items-center justify-between pb-8">
-                <Text className="text-xl">{selectedRoom?.name}</Text>
-                <Button
-                  variant="default"
-                  onClick={() => {
-                    router.push(`/rooms/${selectedRoomId}`);
-                  }}
-                >
-                  Join room
-                </Button>
-              </div>
-              <Text className="font-bold">Participants</Text>
-              {selectedRoomUsers?.map((roomUser) => (
-                <Text key={roomUser._id}>
-                  {roomUser.user?.name} - {roomUser.status}
-                </Text>
-              ))}
-            </>
-          )}
-        </div>
-      </Page>
-    </PrivatePageWrapper>
+            className="w-full mb-4"
+            variant={selectedRoomId === room._id ? "default" : "outline"}
+          >
+            {room.name}
+          </Button>
+        ))}
+      </div>
+      <div className="w-3/4 pl-4">
+        {Boolean(selectedRoom) && (
+          <>
+            <div className="flex flex-row items-center justify-between pb-8">
+              <Text className="text-xl">{selectedRoom?.name}</Text>
+              <Button
+                variant="default"
+                onClick={() => {
+                  router.push(`/rooms/${selectedRoomId}`);
+                }}
+              >
+                Join room
+              </Button>
+            </div>
+            <Text className="font-bold">Participants</Text>
+            {selectedRoomUsers?.map((roomUser) => (
+              <Text key={roomUser._id}>
+                {roomUser.user?.name} - {roomUser.status}
+              </Text>
+            ))}
+          </>
+        )}
+      </div>
+    </div>
   );
 }

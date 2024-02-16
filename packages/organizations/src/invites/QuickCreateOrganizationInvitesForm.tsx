@@ -4,11 +4,10 @@ import * as Yup from "yup";
 import { useMutation } from "convex/react";
 import { Plus } from "lucide-react";
 import { api } from "@repo/convex";
+import { useMe } from "@repo/authorization";
 import { useToast } from "@repo/ui/hooks";
-import type { SimpleFormConfig } from "@repo/ui";
-import { SimpleDialogForm, Button } from "@repo/ui";
-import { useMe } from "../Authorization/MeProvider";
-import { useOrg } from "../Organizations/OrganizationProvider";
+import { SimpleDialogForm, Button, type SimpleFormConfig } from "@repo/ui";
+import { useMeOrganization } from "../MeOrganizationProvider";
 
 interface CreateOrganizationInvitesFormFields {
   emails: string;
@@ -27,7 +26,7 @@ const initialValues = {
 export function QuickCreateOrganizationInviteForm() {
   const { toast } = useToast();
   const { me } = useMe();
-  const { org } = useOrg();
+  const { meOrganization } = useMeOrganization();
   const createOrganizationInvites = useMutation(
     api.organizationInvites.sessionedCreateManyAsOrgOwner
   );
@@ -35,12 +34,12 @@ export function QuickCreateOrganizationInviteForm() {
   async function onSubmit(values: CreateOrganizationInvitesFormFields) {
     if (!me)
       throw new Error("User must be logged in to create an organization.");
-    if (!org)
+    if (!meOrganization)
       throw new Error("User must be in an organization to create invites.");
     try {
       await createOrganizationInvites({
         emails: values.emails,
-        organizationId: org._id,
+        organizationId: meOrganization._id,
       });
       toast({
         title: "Success!",

@@ -2,19 +2,24 @@
 
 import { useQuery } from "convex/react";
 import { api } from "@repo/convex";
+import { useMeOrganization } from "@repo/organizations";
+import {
+  OrganizationInvitesTable,
+  QuickCreateOrganizationInviteForm,
+} from "@repo/organizations/invites";
 import { Text } from "@repo/ui";
-import { OrganizationInvitesTable } from "../../../../../lib/OrganizationInvites/OrganizationUserInvitesTable";
-import { QuickCreateOrganizationInviteForm } from "../../../../../lib/OrganizationInvites/QuickCreateOrganizationInvitesForm";
-import { useOrg } from "../../../../../lib/Organizations/OrganizationProvider";
 
 export default function DashboardPage() {
-  const { isLoading, org } = useOrg();
-  const invitesQueryArgs = org ? { organizationId: org._id } : "skip";
+  const { isLoading, meOrganization } = useMeOrganization();
+  const invitesQueryArgs = meOrganization
+    ? { organizationId: meOrganization._id }
+    : "skip";
 
   const invites = useQuery(
     api.organizationInvites.sessionedFindAllByOrganizationIdAsOrgOwner,
     invitesQueryArgs
   );
+
   const invitesIsLoading = invites === undefined;
 
   if (isLoading || invitesIsLoading) return null;

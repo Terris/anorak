@@ -15,8 +15,7 @@ import {
 import "@livekit/components-styles";
 import { api } from "@repo/convex";
 import { LoadingScreen, Text } from "@repo/ui";
-import { useMe } from "../../../lib/Authorization/MeProvider";
-import { PrivatePageWrapper } from "../../../lib/Authorization/PrivatePageWrapper";
+import { useMe, PrivatePageWrapper } from "@repo/authorization";
 import type { RoomId } from "../../../lib/Rooms/types";
 
 export default function RoomsPage() {

@@ -2,28 +2,31 @@
 
 import { useRouter } from "next/navigation";
 import { Loader, Text } from "@repo/ui";
-import { CreateOrganizationInvitesForm } from "../../../lib/OrganizationInvites/CreateOrganizationInvitesForm";
-import { useOrg } from "../../../lib/Organizations/OrganizationProvider";
-import { useUpdateOrganizationUserAsMe } from "../../../lib/OrganizationUsers/hooks/useUpdateOrganizationUserAsMe";
-import { useOrganizationUserAsMe } from "../../../lib/OrganizationUsers/hooks/useOrganizationUserAsMe";
+import { CreateOrganizationInvitesForm } from "@repo/organizations/invites";
+import { useMeOrganization } from "@repo/organizations";
+import {
+  useOrganizationUserAsMe,
+  useUpdateOrganizationUserAsMe,
+} from "@repo/organizations/users/hooks";
 
 export default function OnboardInvitesPage() {
   const router = useRouter();
 
-  const { org, isLoading: orgIsLoading } = useOrg();
+  const { meOrganization, isLoading: meOrganizationIsLoading } =
+    useMeOrganization();
 
   const { isLoading: orgUserIsLoading, organizationUser } =
-    useOrganizationUserAsMe({ organizationId: org?._id });
+    useOrganizationUserAsMe({ organizationId: meOrganization?._id });
 
   const { isLoading: orgUserMutationIsLoading, updateOrganizationUser } =
     useUpdateOrganizationUserAsMe();
 
   async function handleCompleteOnboarding() {
     if (
-      orgIsLoading ||
+      meOrganizationIsLoading ||
       orgUserMutationIsLoading ||
       orgUserIsLoading ||
-      !org ||
+      !meOrganization ||
       !organizationUser
     )
       return;
@@ -31,10 +34,15 @@ export default function OnboardInvitesPage() {
       organizationUserId: organizationUser._id,
       onboardingComplete: true,
     });
-    router.push(`/org/${org.slug}`);
+    router.push(`/org/${meOrganization.slug}`);
   }
 
-  if (orgIsLoading || orgUserMutationIsLoading || orgUserIsLoading || !org)
+  if (
+    meOrganizationIsLoading ||
+    orgUserMutationIsLoading ||
+    orgUserIsLoading ||
+    !meOrganization
+  )
     return <Loader />;
 
   return (
@@ -45,7 +53,7 @@ export default function OnboardInvitesPage() {
       </Text>
 
       <CreateOrganizationInvitesForm
-        orgId={org._id}
+        orgId={meOrganization._id}
         onSuccess={handleCompleteOnboarding}
         onSkip={handleCompleteOnboarding}
       />

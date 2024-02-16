@@ -3,19 +3,18 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Text } from "@repo/ui";
-import { CreateOrganizationForm } from "../../lib/Organizations/CreateOrganizationForm";
-import { useOrg } from "../../lib/Organizations/OrganizationProvider";
+import { CreateOrganizationForm, useMeOrganization } from "@repo/organizations";
 
 export default function OnboardOrgPage() {
   const router = useRouter();
-  const { org, isLoading } = useOrg();
+  const { meOrganization, isLoading } = useMeOrganization();
 
   useEffect(() => {
     if (isLoading) return;
-    if (org) {
+    if (meOrganization) {
       router.push("/onboard/spendcap");
     }
-  }, [isLoading, org, router]);
+  }, [isLoading, meOrganization, router]);
 
   if (isLoading) return null;
 

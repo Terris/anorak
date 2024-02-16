@@ -4,11 +4,13 @@ import type { ReactNode } from "react";
 import { createContext, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { LoadingScreen } from "@repo/ui";
-import { useMe } from "../Authorization/MeProvider";
-import type { OrganizationUserId } from "../OrganizationUsers/types";
-import { useOrganizationUserAsMe } from "../OrganizationUsers/hooks/useOrganizationUserAsMe";
-import { useCreateOrganizationUserWithInviteAsMe } from "../OrganizationUsers/hooks/useCreateOrganizationUserWithInviteAsMe";
-import { useUpdateOrganizationUserAsMe } from "../OrganizationUsers/hooks/useUpdateOrganizationUserAsMe";
+import { useMe } from "@repo/authorization";
+import {
+  useOrganizationUserAsMe,
+  useUpdateOrganizationUserAsMe,
+  useCreateOrganizationUserWithInviteAsMe,
+} from "../users/hooks";
+import type { OrganizationUserId } from "../users";
 import { useInviteFromParams } from "./hooks/useInviteFromParams";
 import type {
   OrganizationInviteId,

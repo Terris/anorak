@@ -2,13 +2,12 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { Button, LoadingScreen } from "@repo/ui";
-import { PrivatePageWrapper } from "../../../../lib/Authorization/PrivatePageWrapper";
-import type { OrganizationDoc } from "../../../../lib/Organizations/types";
+import { PrivatePageWrapper } from "@repo/authorization";
 import {
-  OrganizationProvider,
-  useOrg,
-} from "../../../../lib/Organizations/OrganizationProvider";
-import { Page } from "../../../../lib/layout/Page";
+  MeOrganizationProvider,
+  useMeOrganization,
+  type OrganizationDoc,
+} from "@repo/organizations";
 
 export default function OrgDashboardLayout({
   children,
@@ -18,12 +17,12 @@ export default function OrgDashboardLayout({
 }) {
   return (
     <PrivatePageWrapper>
-      <OrganizationProvider>
-        <Page className="flex flex-col gap-8 md:flex-row">
+      <MeOrganizationProvider>
+        <div className="w-full p-8 flex flex-col gap-8 md:flex-row">
           <DashboardNav />
           <div className="w-5/6">{children}</div>
-        </Page>
-      </OrganizationProvider>
+        </div>
+      </MeOrganizationProvider>
     </PrivatePageWrapper>
   );
 }
@@ -31,26 +30,34 @@ export default function OrgDashboardLayout({
 function DashboardNav() {
   const router = useRouter();
   const pathname = usePathname();
-  const { isLoading, org } = useOrg();
+  const { isLoading, meOrganization } = useMeOrganization();
 
-  if (isLoading || !org) return <LoadingScreen />;
+  const meOrganizationPath = meOrganization
+    ? `/org/${meOrganization.slug}`
+    : null;
+
+  if (isLoading || !meOrganization) return <LoadingScreen />;
   return (
     <div className="w-1/6 flex flex-col">
       <Button
         onClick={() => {
-          router.push(`/${org.slug}/admin`);
+          router.push(`${meOrganizationPath}/admin`);
         }}
-        variant={pathname === `/org/${org.slug}/admin` ? "selected" : "ghost"}
+        variant={
+          pathname === `${meOrganizationPath}/admin` ? "selected" : "ghost"
+        }
         className="justify-start"
       >
-        {org.name}
+        {meOrganization.name}
       </Button>
       <Button
         onClick={() => {
-          router.push(`/${org.slug}/admin/users`);
+          router.push(`${meOrganizationPath}/admin/users`);
         }}
         variant={
-          pathname === `/org/${org.slug}/admin/users` ? "selected" : "ghost"
+          pathname === `${meOrganizationPath}/admin/users`
+            ? "selected"
+            : "ghost"
         }
         className="justify-start"
       >
@@ -58,10 +65,12 @@ function DashboardNav() {
       </Button>
       <Button
         onClick={() => {
-          router.push(`/${org.slug}/admin/invites`);
+          router.push(`${meOrganizationPath}/admin/invites`);
         }}
         variant={
-          pathname === `/org/${org.slug}/admin/invites` ? "selected" : "ghost"
+          pathname === `${meOrganizationPath}/admin/invites`
+            ? "selected"
+            : "ghost"
         }
         className="justify-start"
       >
@@ -69,10 +78,12 @@ function DashboardNav() {
       </Button>
       <Button
         onClick={() => {
-          router.push(`/${org.slug}/admin/usage`);
+          router.push(`${meOrganizationPath}/admin/usage`);
         }}
         variant={
-          pathname === `/org/${org.slug}/admin/usage` ? "selected" : "ghost"
+          pathname === `${meOrganizationPath}/admin/usage`
+            ? "selected"
+            : "ghost"
         }
         className="justify-start"
       >
@@ -80,10 +91,12 @@ function DashboardNav() {
       </Button>
       <Button
         onClick={() => {
-          router.push(`/${org.slug}/admin/billing`);
+          router.push(`${meOrganizationPath}/admin/billing`);
         }}
         variant={
-          pathname === `/org/${org.slug}/admin/billing` ? "selected" : "ghost"
+          pathname === `${meOrganizationPath}/admin/billing`
+            ? "selected"
+            : "ghost"
         }
         className="justify-start"
       >

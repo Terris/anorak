@@ -1,9 +1,9 @@
 import { Toaster } from "@repo/ui";
 import { cn } from "@repo/utils";
-import { Masthead, Main } from "../lib/layout";
 import "@repo/ui/globals.css";
 import "./app.css";
 import AppProviders from "./AppProviders";
+import { Masthead } from "./Masthead";
 
 export const metadata = {
   title: "Cyclical",
@@ -25,7 +25,9 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
         <AppProviders>
           <div className="flex flex-col w-full h-full min-h-screen flex-1">
             <Masthead />
-            <Main>{children}</Main>
+            <main className="w-full flex flex-col items-start justify-start">
+              {children}
+            </main>
             {modal}
             <Toaster />
           </div>

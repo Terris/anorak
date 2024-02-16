@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { Button, Input, LoadingScreen, LogoDark, Text } from "@repo/ui";
-import { useOrganizationInvite } from "../../../../lib/OrganizationInvites/OrganizationInviteProvider";
-import { Page } from "../../../../lib/layout/Page";
+import { useOrganizationInvite } from "@repo/organizations/invites";
 
 export default function RsvpProfilePage() {
   const {
@@ -20,7 +19,7 @@ export default function RsvpProfilePage() {
   if (inviteIsLoading) return <LoadingScreen />;
 
   return (
-    <Page className="flex flex-col py-16 mx-auto max-w-[600px]">
+    <div className="w-full p-8 flex flex-col py-16 mx-auto max-w-[600px]">
       <div className="pb-8">
         <LogoDark width={60} />
       </div>
@@ -90,6 +89,6 @@ export default function RsvpProfilePage() {
       <Text className="text-center text-muted-foreground text-sm">
         Step {step + 1} of 2
       </Text>
-    </Page>
+    </div>
   );
 }

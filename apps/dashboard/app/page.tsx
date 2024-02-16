@@ -1,5 +1,17 @@
-import { Page } from "../lib/layout/Page";
+"use client";
+
+import { useMeOrganization } from "@repo/organizations";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
-  return <Page className="pt-16">Dashboard</Page>;
+  const router = useRouter();
+  const { meOrganization, isLoading } = useMeOrganization();
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (meOrganization) router.push(`/org/${meOrganization.slug}`);
+  }, [isLoading, meOrganization, router]);
+
+  return null;
 }
