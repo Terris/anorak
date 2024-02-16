@@ -1,7 +1,7 @@
 "use node";
 
 import { Webhook } from "svix";
-import type { WebhookEvent } from "@clerk/clerk-sdk-node";
+import type { UserJSON, WebhookEvent } from "@clerk/clerk-sdk-node";
 import { ConvexError, v } from "convex/values";
 import { internalAction } from "./_generated/server";
 import { internal } from "./_generated/api";
@@ -43,8 +43,8 @@ export const internalHandleClerkWebhook = internalAction({
       switch (event.type) {
         case "user.created":
           {
-            const eventData = event.data;
-            const email = eventData.email_addresses[0].email_address;
+            const eventData = event.data as UserJSON;
+            const email = eventData?.email_addresses[0]?.email_address;
             if (!email) {
               throw new ConvexError("Error occured -- no email");
             }
