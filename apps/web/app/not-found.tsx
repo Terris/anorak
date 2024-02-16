@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { Text } from "@repo/ui";
-import { Page } from "../lib/layout/PageWrapper";
 
 export default function NotFound() {
   return (
-    <Page className="py-32">
+    <div className="w-full p-8">
       <Text className="text-center font-tuna font-black text-xl">
         Dang, there&rsquo;s nothing here.
       </Text>
@@ -15,6 +14,6 @@ export default function NotFound() {
         </Link>
         .
       </Text>
-    </Page>
+    </div>
   );
 }
