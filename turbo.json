@@ -1,30 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalEnv": [
-    "NEXT_PUBLIC_CONVEX_URL",
-    "NEXT_PUBLIC_PUBLIC_SITE_URL",
-    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    "CLERK_SECRET_KEY"
-  ],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
-    },
-    "dashboard#build": {
-      "dependsOn": ["^build"],
-      "env": [
-        "NEXT_PUBLIC_CONVEX_URL",
-        "NEXT_PUBLIC_S3_BUCKET_NAME",
-        "NEXT_PUBLIC_S3_BUCKET_URL",
-        "NEXT_PUBLIC_S3_FOLDER",
-        "NEXT_PUBLIC_AWS_IDENTITY_POOL_ID",
-        "LIVEKIT_API_KEY",
-        "LIVEKIT_API_SECRET",
-        "NEXT_PUBLIC_LIVEKIT_URL",
-        "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"
-      ],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {},
@@ -33,10 +12,7 @@
       "cache": false,
       "persistent": true
     },
-    "@repo/convex#dev": {
-      "dependsOn": ["^dev"],
-      "env": ["CONVEX_DEPLOYMENT", "CONVEX_URL"]
-    },
+
     "clean": {
       "cache": false
     }
