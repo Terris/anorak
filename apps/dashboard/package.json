@@ -9,13 +9,15 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.29.3",
-    "@livekit/components-react": "^1.5.3",
-    "@livekit/components-styles": "^1.0.9",
     "@repo/convex": "workspace:*",
+    "@repo/authorization": "workspace:*",
+    "@repo/organizations": "workspace:*",
     "@repo/hooks": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
+    "@clerk/nextjs": "^4.29.7",
+    "@livekit/components-react": "^1.5.3",
+    "@livekit/components-styles": "^1.0.9",
     "@tanstack/react-table": "^8.11.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

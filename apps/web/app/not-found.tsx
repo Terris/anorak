@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Text } from "@repo/ui";
-import { Page } from "../lib/layout/Page";
+import { Page } from "../lib/layout/PageWrapper";
 
 export default function NotFound() {
   return (

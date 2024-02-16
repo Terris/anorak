@@ -1,9 +1,8 @@
 import { Text } from "@repo/ui";
-import { Page } from "../lib/layout/Page";
 
 export default function Home() {
   return (
-    <Page className="pt-16">
+    <div className="w-full p-8 pt-16">
       <div className="my-16 md:w-[700px]">
         <Text as="h1" className="text-4xl font-tuna pb-32">
           Build an indestructible company culture <br />
@@ -69,6 +68,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </Page>
+    </div>
   );
 }

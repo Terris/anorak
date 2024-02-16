@@ -1,9 +1,9 @@
-import { cn } from "@repo/utils";
 import { Toaster } from "@repo/ui";
-import { AppProviders } from "../lib/providers/AppProviders";
+import { cn } from "@repo/utils";
 import { Masthead, Main } from "../lib/layout";
 import "@repo/ui/globals.css";
 import "./app.css";
+import AppProviders from "./AppProviders";
 
 export const metadata = {
   title: "Cyclical",

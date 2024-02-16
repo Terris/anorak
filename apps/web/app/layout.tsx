@@ -1,7 +1,7 @@
 import { cn } from "@repo/utils";
 import { Toaster } from "@repo/ui";
-import { AppProviders } from "../lib/providers/AppProviders";
-import { Masthead, Main } from "../lib/layout";
+import { Masthead } from "./Masthead";
+import { AppProviders } from "./AppProviders";
 import "@repo/ui/globals.css";
 import "./app.css";
 
@@ -25,7 +25,9 @@ export default function RootLayout({ children, modal }: RootLayoutProps) {
         <AppProviders>
           <div className="flex flex-col w-full h-full min-h-screen flex-1">
             <Masthead />
-            <Main>{children}</Main>
+            <main className="w-full flex flex-col items-start justify-start">
+              {children}
+            </main>
             {modal}
             <Toaster />
           </div>

@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { LogoDark, LogoLight } from "@repo/ui";
 import { ThemeModeToggle } from "@repo/ui/ThemeModeToggle";
-import { useMe } from "../Authorization/MeProvider";
+import { useMe } from "@repo/authorization";
 
 export function Masthead() {
   const { resolvedTheme } = useTheme();

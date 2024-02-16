@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { SignInButton, UserButton } from "@clerk/nextjs";
+import { useMe } from "@repo/authorization";
 import { LogoDark, LogoLight } from "@repo/ui";
 import { ThemeModeToggle } from "@repo/ui/ThemeModeToggle";
-import { useMe } from "../Authorization/MeProvider";
 
 export function Masthead() {
   const { resolvedTheme } = useTheme();
@@ -49,7 +49,10 @@ export function Masthead() {
       )}
       {me?.isAuthorizedUser && me.organization?.slug ? (
         <div className="flex flex-row gap-8 ml-auto mr-8">
-          <Link href={`/org/${me.organization.slug}`} className="font-bold">
+          <Link
+            href={`${process.env.NEXT_PUBLIC_DASHBOARD_URL}/org/${me.organization.slug}`}
+            className="font-bold"
+          >
             Dashboard
           </Link>
         </div>
@@ -57,7 +60,6 @@ export function Masthead() {
 
       <div className="flex flex-row items-center justify-between gap-4">
         <ThemeModeToggle />
-
         {isAuthenticated ? (
           <UserButton
             afterSignOutUrl="/"
