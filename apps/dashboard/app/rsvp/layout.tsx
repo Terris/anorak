@@ -1,3 +1,5 @@
+"use client";
+
 import { OrganizationInviteProvider } from "@repo/organizations/invites";
 
 export default function RsvpLayout({

@@ -7,10 +7,13 @@ import { SignInButton, UserButton } from "@clerk/nextjs";
 import { LogoDark, LogoLight } from "@repo/ui";
 import { ThemeModeToggle } from "@repo/ui/ThemeModeToggle";
 import { useMeContext } from "@repo/auth/context";
+import { useMeOrganization } from "@repo/organizations";
 
 export function Masthead() {
   const { resolvedTheme } = useTheme();
   const { isAuthenticated, me } = useMeContext();
+  const { meOrganization } = useMeOrganization();
+
   const path = usePathname();
 
   const hideHeader = [
@@ -27,12 +30,11 @@ export function Masthead() {
         ) : (
           <LogoLight width={100} />
         )}
-        {/* <Text className="font-tuna ml-2 font-black">Cyclical</Text> */}
       </Link>
 
-      {me?.isAuthorizedUser && me.organization?.slug ? (
+      {me?.isAuthorizedUser && meOrganization ? (
         <div className="flex flex-row gap-8 ml-auto mr-8">
-          <Link href={`/org/${me.organization.slug}`} className="font-bold">
+          <Link href={`/org/${meOrganization.slug}`} className="font-bold">
             Dashboard
           </Link>
         </div>
