@@ -12,10 +12,9 @@ export function Masthead() {
   const { resolvedTheme } = useTheme();
   const { isAuthenticated, me } = useMe();
   const path = usePathname();
-  const isHomePath = path === "/";
 
   const hideHeader = [
-    /^\/rsvp(?:\/.*)?$/, // /rsvp/[inviteToken]
+    /^\/rsvp(?:\/.*)?$/, // /rsvp/[inviteToken]/*
   ].some((matcher) => matcher.test(path));
 
   if (hideHeader) return null;
@@ -31,22 +30,6 @@ export function Masthead() {
         {/* <Text className="font-tuna ml-2 font-black">Cyclical</Text> */}
       </Link>
 
-      {Boolean(isHomePath) && (
-        <div className="flex flex-row gap-8 mr-auto ml-4">
-          <Link href="/" className="font-bold">
-            How it works
-          </Link>
-          <Link href="/" className="font-bold">
-            Pricing
-          </Link>
-          <Link href="/" className="font-bold">
-            FAQs
-          </Link>
-          <Link href="/" className="font-bold">
-            Get Started
-          </Link>
-        </div>
-      )}
       {me?.isAuthorizedUser && me.organization?.slug ? (
         <div className="flex flex-row gap-8 ml-auto mr-8">
           <Link href={`/org/${me.organization.slug}`} className="font-bold">
@@ -60,7 +43,7 @@ export function Masthead() {
 
         {isAuthenticated ? (
           <UserButton
-            afterSignOutUrl="/"
+            afterSignOutUrl={process.env.NEXT_PUBLIC_SITE_URL}
             appearance={{
               elements: {
                 userButtonPopoverCard: "rounded shadow-md",
