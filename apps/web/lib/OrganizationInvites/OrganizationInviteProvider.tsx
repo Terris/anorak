@@ -8,7 +8,7 @@ import { useMe } from "../Authorization/MeProvider";
 import type { OrganizationUserId } from "../OrganizationUsers/types";
 import { useOrganizationUserAsMe } from "../OrganizationUsers/hooks/useOrganizationUserAsMe";
 import { useCreateOrganizationUserWithInviteAsMe } from "../OrganizationUsers/hooks/useCreateOrganizationUserWithInviteAsMe";
-import { useUpdateOrganizationUserAsMe } from "../OrganizationUsers/hooks/useUpdateOrganizationUser";
+import { useUpdateOrganizationUserAsMe } from "../OrganizationUsers/hooks/useUpdateOrganizationUserAsMe";
 import { useInviteFromParams } from "./hooks/useInviteFromParams";
 import type {
   OrganizationInviteId,

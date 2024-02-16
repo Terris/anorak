@@ -37,7 +37,7 @@ export function OrganizationProvider({ children }: OrganizationProviderProps) {
   useEffect(() => {
     if (isLoading || orgIsLoading) return;
     if (!org) {
-      router.replace("/");
+      router.replace("/onboard");
     }
   }, [isLoading, org, orgIsLoading, router]);
 
@@ -48,7 +48,7 @@ export function OrganizationProvider({ children }: OrganizationProviderProps) {
         org,
       }}
     >
-      {orgIsLoading || !org ? <LoadingScreen /> : children}
+      {orgIsLoading ? <LoadingScreen /> : children}
     </OrganizationContext.Provider>
   );
 }

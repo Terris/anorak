@@ -44,6 +44,14 @@ export const sessionedCreate = mutation({
       ownerId: user._id,
       spendCapInCents: 0,
     });
+
+    // create the organization user
+    await ctx.db.insert("organizationUsers", {
+      organizationId: newOrganizationId,
+      userId: user._id,
+      onboardingComplete: false,
+    });
+
     return newOrganizationId;
   },
 });

@@ -12,7 +12,7 @@ const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider
-      afterSignInUrl="/dashboard"
+      afterSignInUrl={process.env.NEXT_PUBLIC_DASHBOARD_URL}
       afterSignUpUrl="/onboard"
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
