@@ -1,7 +1,7 @@
 "use client";
 
 import { Text } from "@repo/ui";
-import { useMe } from "../../../../lib/Authorization/MeProvider";
+import { useMe } from "@repo/authorization";
 
 export default function DashboardPage() {
   const { me } = useMe();

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@repo/convex";
 import { useMe } from "@repo/authorization";
-import type { OrganizationInviteId } from "../../OrganizationInvites/types";
+import type { OrganizationInviteId } from "../../invites/types";
 import type { OrganizationUserId } from "../types";
 
 interface CreateOrganizationUserArgs {
