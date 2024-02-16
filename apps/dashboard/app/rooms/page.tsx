@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@repo/convex";
 import { Button, Text } from "@repo/ui";
-import { CreateRoomForm } from "../../lib/Rooms/CreateRoomForm";
-import type { RoomId } from "../../lib/Rooms/types";
+import { CreateRoomForm } from "./CreateRoomForm";
+import type { RoomId } from "./types";
 
 export default function RoomsPage() {
   const router = useRouter();

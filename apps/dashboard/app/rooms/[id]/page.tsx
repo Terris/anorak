@@ -17,7 +17,7 @@ import { api } from "@repo/convex";
 import { LoadingScreen, Text } from "@repo/ui";
 import { useMeContext } from "@repo/auth/context";
 import { PrivatePageWrapper } from "@repo/auth";
-import type { RoomId } from "../../../lib/Rooms/types";
+import type { RoomId } from "../types";
 
 export default function RoomsPage() {
   const { me } = useMeContext();
