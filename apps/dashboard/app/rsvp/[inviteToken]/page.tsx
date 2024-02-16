@@ -5,13 +5,13 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { SignUpButton } from "@clerk/nextjs";
 import { Button, LoadingScreen, Text } from "@repo/ui";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 import { useOrganizationInvite } from "@repo/organizations/invites";
 
 export default function RsvpPage() {
   const router = useRouter();
   const { inviteToken } = useParams();
-  const { me, isLoading: meIsLoading } = useMe();
+  const { me, isLoading: meIsLoading } = useMeContext();
   const { invite, isLoading: inviteIsLoading } = useOrganizationInvite();
   const orgName = invite?.organization.name;
 

@@ -3,7 +3,7 @@ import { useMutation } from "convex/react";
 import type { FieldProps, FormikHelpers } from "formik";
 import { Field, Form, Formik } from "formik";
 import { api } from "@repo/convex";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 import { useToast } from "@repo/ui/hooks";
 import { Button, CurrencyInput, Text } from "@repo/ui";
 import { useMeOrganization } from "./MeOrganizationProvider";
@@ -25,7 +25,7 @@ export function UpdateOrgSpendCapForm({
   onSuccess,
 }: UpdateOrgSpendCapFormProps) {
   const { toast } = useToast();
-  const { me } = useMe();
+  const { me } = useMeContext();
   const { meOrganization, isLoading } = useMeOrganization();
 
   const updateOrgSpendingCap = useMutation(

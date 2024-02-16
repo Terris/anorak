@@ -15,11 +15,12 @@ import {
 import "@livekit/components-styles";
 import { api } from "@repo/convex";
 import { LoadingScreen, Text } from "@repo/ui";
-import { useMe, PrivatePageWrapper } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
+import { PrivatePageWrapper } from "@repo/auth";
 import type { RoomId } from "../../../lib/Rooms/types";
 
 export default function RoomsPage() {
-  const { me } = useMe();
+  const { me } = useMeContext();
   const router = useRouter();
   const params = useParams();
 

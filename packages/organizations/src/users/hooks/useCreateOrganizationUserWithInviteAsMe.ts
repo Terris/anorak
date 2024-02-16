@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@repo/convex";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 import type { OrganizationInviteId } from "../../invites/types";
 import type { OrganizationUserId } from "../types";
 
@@ -10,7 +10,7 @@ interface CreateOrganizationUserArgs {
 }
 
 export function useCreateOrganizationUserWithInviteAsMe() {
-  const { me } = useMe();
+  const { me } = useMeContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [newOrganizationUserId, setNewOrganizationUserId] =

@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { useMutation } from "convex/react";
 import { Plus } from "lucide-react";
 import { api } from "@repo/convex";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 import { useToast } from "@repo/ui/hooks";
 import { SimpleDialogForm, Button, type SimpleFormConfig } from "@repo/ui";
 import { useMeOrganization } from "../MeOrganizationProvider";
@@ -25,7 +25,7 @@ const initialValues = {
 
 export function QuickCreateOrganizationInviteForm() {
   const { toast } = useToast();
-  const { me } = useMe();
+  const { me } = useMeContext();
   const { meOrganization } = useMeOrganization();
   const createOrganizationInvites = useMutation(
     api.organizationInvites.sessionedCreateManyAsOrgOwner

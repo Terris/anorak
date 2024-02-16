@@ -1,10 +1,10 @@
 "use client";
 
 import { Text } from "@repo/ui";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 
 export default function DashboardPage() {
-  const { me } = useMe();
+  const { me } = useMeContext();
 
   return (
     <Text as="h2" className="text-2xl">

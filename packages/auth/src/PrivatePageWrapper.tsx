@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { LoadingScreen } from "@repo/ui";
-import { useMe } from "./MeProvider";
+import { useMeContext } from "./context/MeContext";
 
 interface PrivatePageWrapperProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export function PrivatePageWrapper({
   authorizedRoles,
 }: PrivatePageWrapperProps) {
   const router = useRouter();
-  const { isLoading, me } = useMe();
+  const { isLoading, me } = useMeContext();
 
   useEffect(() => {
     if (isLoading) return;

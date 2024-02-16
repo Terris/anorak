@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { Button, LoadingScreen } from "@repo/ui";
-import { PrivatePageWrapper } from "@repo/authorization";
+import { PrivatePageWrapper } from "@repo/auth";
 import {
   MeOrganizationProvider,
   useMeOrganization,

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { createContext, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { LoadingScreen } from "@repo/ui";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 import {
   useOrganizationUserAsMe,
   useUpdateOrganizationUserAsMe,
@@ -46,7 +46,7 @@ export function OrganizationInviteProvider({
   children,
 }: OrganizationInviteProviderProps) {
   const router = useRouter();
-  const { me } = useMe();
+  const { me } = useMeContext();
 
   // GET INVITE
   const {

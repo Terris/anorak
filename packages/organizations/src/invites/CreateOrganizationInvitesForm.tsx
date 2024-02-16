@@ -5,7 +5,7 @@ import { Field, Form, Formik } from "formik";
 import { api } from "@repo/convex";
 import { Button, Text, Textarea } from "@repo/ui";
 import { useToast } from "@repo/ui/hooks";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 import type { OrganizationId } from "../types";
 
 const validationSchema = Yup.object().shape({
@@ -27,7 +27,7 @@ export function CreateOrganizationInvitesForm({
   onSkip,
 }: CreateOrganizationInvitesFormProps) {
   const { toast } = useToast();
-  const { me } = useMe();
+  const { me } = useMeContext();
   const createOrganizationInvites = useMutation(
     api.organizationInvites.sessionedCreateManyAsOrgOwner
   );

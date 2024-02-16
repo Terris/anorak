@@ -6,7 +6,7 @@ import { useConvexAuth, useQuery } from "convex/react";
 import type { Id } from "@repo/convex";
 import { api } from "@repo/convex";
 import { LoadingScreen } from "@repo/ui";
-import type { UserId } from "./types";
+import type { UserId } from "../types";
 
 interface UserOrganization {
   id: Id<"organizations">;
@@ -71,7 +71,7 @@ export function MeProvider({ children }: MeProviderProps) {
   );
 }
 
-export const useMe = () => {
+export const useMeContext = () => {
   const meContext = useContext(MeContext);
   return meContext;
 };

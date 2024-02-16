@@ -1,9 +1,9 @@
 {
-  "name": "@repo/authorization",
+  "name": "@repo/auth",
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./hooks": "./src/hooks/index.ts",
+    "./context": "./src/context/index.ts",
     ".": "./src/index.ts"
   },
   "scripts": {

@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@repo/convex": "workspace:*",
-    "@repo/authorization": "workspace:*",
+    "@repo/auth": "workspace:*",
     "@repo/organizations": "workspace:*",
     "@repo/hooks": "workspace:*",
     "@repo/ui": "workspace:*",

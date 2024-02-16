@@ -15,7 +15,7 @@
     "generate:component": "turbo gen react-component"
   },
   "dependencies": {
-    "@repo/authorization": "workspace:*",
+    "@repo/auth": "workspace:*",
     "@repo/convex": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",

@@ -35,9 +35,9 @@ importers:
       '@livekit/components-styles':
         specifier: ^1.0.9
         version: 1.0.9
-      '@repo/authorization':
+      '@repo/auth':
         specifier: workspace:*
-        version: link:../../packages/authorization
+        version: link:../../packages/auth
       '@repo/convex':
         specifier: workspace:*
         version: link:../../packages/convex
@@ -150,9 +150,9 @@ importers:
       '@livekit/components-styles':
         specifier: ^1.0.9
         version: 1.0.9
-      '@repo/authorization':
+      '@repo/auth':
         specifier: workspace:*
-        version: link:../../packages/authorization
+        version: link:../../packages/auth
       '@repo/convex':
         specifier: workspace:*
         version: link:../../packages/convex
@@ -281,7 +281,7 @@ importers:
 
   config/typescript-config: {}
 
-  packages/authorization:
+  packages/auth:
     dependencies:
       '@clerk/nextjs':
         specifier: ^4.29.7
@@ -402,9 +402,9 @@ importers:
 
   packages/organizations:
     dependencies:
-      '@repo/authorization':
+      '@repo/auth':
         specifier: workspace:*
-        version: link:../authorization
+        version: link:../auth
       '@repo/convex':
         specifier: workspace:*
         version: link:../convex

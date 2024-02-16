@@ -1,4 +1,4 @@
-import type { UserId } from "@repo/authorization";
+import type { UserId } from "@repo/auth";
 import { api } from "@repo/convex";
 import { useQuery } from "convex/react";
 

@@ -3,7 +3,7 @@ import type { FieldProps, FormikHelpers } from "formik";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { api } from "@repo/convex";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 import { useToast } from "@repo/ui/hooks";
 import { Button, Input, Text } from "@repo/ui";
 
@@ -22,7 +22,7 @@ export function CreateOrganizationForm({
   onSuccess,
 }: CreateOrganizationFormProps) {
   const { toast } = useToast();
-  const { me } = useMe();
+  const { me } = useMeContext();
   const createOrganization = useMutation(api.organizations.sessionedCreate);
 
   async function onSubmit(

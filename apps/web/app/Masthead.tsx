@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { SignInButton, UserButton } from "@clerk/nextjs";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 import { LogoDark, LogoLight } from "@repo/ui";
 import { ThemeModeToggle } from "@repo/ui/ThemeModeToggle";
 
 export function Masthead() {
   const { resolvedTheme } = useTheme();
-  const { isAuthenticated, me } = useMe();
+  const { isAuthenticated, me } = useMeContext();
   const path = usePathname();
   const isHomePath = path === "/";
 

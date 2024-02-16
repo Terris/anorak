@@ -1,6 +1,6 @@
 import { useQuery } from "convex/react";
 import { api } from "@repo/convex";
-import { useMe } from "@repo/authorization";
+import { useMeContext } from "@repo/auth/context";
 import type { OrganizationId } from "../../types";
 
 export function useOrganizationUserAsMe({
@@ -8,7 +8,7 @@ export function useOrganizationUserAsMe({
 }: {
   organizationId?: OrganizationId;
 }) {
-  const { me } = useMe();
+  const { me } = useMeContext();
 
   const organizationUserArgs =
     me && organizationId ? { organizationId, userId: me.id } : "skip";
