@@ -2,7 +2,7 @@
   "name": "cyclical-mono",
   "private": true,
   "scripts": {
-    "build": "turbo build --filter=!@repo/convex",
+    "build": "turbo build",
     "dev": "turbo run dev",
     "lint": "turbo lint",
     "type-check": "turbo type-check",
