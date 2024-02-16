@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { createContext, useContext } from "react";
 import { useConvexAuth, useQuery } from "convex/react";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import { LoadingScreen } from "@repo/ui";
 import type { OrganizationUserId } from "../OrganizationUsers/types";
 import type { OrganizationId } from "../Organizations/types";

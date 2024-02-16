@@ -1,4 +1,4 @@
-import type { Doc, Id } from "@repo/backend/convex/_generated/dataModel";
+import type { Doc, Id } from "@repo/convex";
 
 export type OrganizationInviteId = Id<"organizationInvites">;
 export type OrganizationInviteDoc = Doc<"organizationInvites">;

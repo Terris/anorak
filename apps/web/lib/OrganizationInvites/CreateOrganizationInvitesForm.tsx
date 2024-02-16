@@ -2,7 +2,7 @@ import * as Yup from "yup";
 import { useMutation } from "convex/react";
 import type { FieldProps, FormikHelpers } from "formik";
 import { Field, Form, Formik } from "formik";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import { Button, Text, Textarea } from "@repo/ui";
 import { useToast } from "@repo/ui/hooks";
 import { useMe } from "../Authorization/MeProvider";

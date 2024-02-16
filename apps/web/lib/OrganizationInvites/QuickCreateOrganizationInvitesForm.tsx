@@ -3,7 +3,7 @@
 import * as Yup from "yup";
 import { useMutation } from "convex/react";
 import { Plus } from "lucide-react";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import { useToast } from "@repo/ui/hooks";
 import type { SimpleFormConfig } from "@repo/ui";
 import { SimpleDialogForm, Button } from "@repo/ui";

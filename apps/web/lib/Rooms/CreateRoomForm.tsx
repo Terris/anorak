@@ -3,7 +3,7 @@ import type { FieldProps, FormikHelpers } from "formik";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { PlusIcon } from "lucide-react";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import { useToast } from "@repo/ui/hooks";
 import { Button, Input } from "@repo/ui";
 import type { RoomId } from "./types";

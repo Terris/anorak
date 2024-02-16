@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
-import { api } from "@repo/backend/convex/_generated/api";
-import type { Id } from "@repo/backend/convex/_generated/dataModel";
+import { api } from "@repo/convex";
+import type { Id } from "@repo/convex";
 import { Button, Text } from "@repo/ui";
 import { PrivatePageWrapper } from "../../lib/Authorization/PrivatePageWrapper";
 import { CreateRoomForm } from "../../lib/Rooms/CreateRoomForm";

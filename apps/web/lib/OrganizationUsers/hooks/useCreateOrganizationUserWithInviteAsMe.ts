@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "convex/react";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import { useMe } from "../../Authorization/MeProvider";
 import type { OrganizationInviteId } from "../../OrganizationInvites/types";
 import type { OrganizationUserId } from "../types";

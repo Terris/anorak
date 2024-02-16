@@ -1,6 +1,6 @@
 import { useMutation } from "convex/react";
 import { Trash } from "lucide-react";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import { Button } from "@repo/ui";
 import type { OrganizationId } from "../Organizations/types";
 import type { OrganizationInviteId } from "./types";

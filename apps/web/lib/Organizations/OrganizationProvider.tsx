@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { createContext, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import { LoadingScreen } from "@repo/ui";
 import { useMe } from "../Authorization/MeProvider";
 import type { OrganizationDoc } from "./types";

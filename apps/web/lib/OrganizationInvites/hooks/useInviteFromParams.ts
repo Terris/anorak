@@ -1,6 +1,6 @@
 import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import type { OrganizationInviteId } from "../types";
 
 export function useInviteFromParams() {

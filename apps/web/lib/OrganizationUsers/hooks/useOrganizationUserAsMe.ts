@@ -1,5 +1,5 @@
 import { useQuery } from "convex/react";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import { useMe } from "../../Authorization/MeProvider";
 import type { OrganizationId } from "../../Organizations/types";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/";
 import { Text } from "@repo/ui";
 import { OrganizationInvitesTable } from "../../../../../lib/OrganizationInvites/OrganizationUserInvitesTable";
 import { QuickCreateOrganizationInviteForm } from "../../../../../lib/OrganizationInvites/QuickCreateOrganizationInvitesForm";

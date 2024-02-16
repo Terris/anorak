@@ -13,7 +13,7 @@ import {
   useTracks,
 } from "@livekit/components-react";
 import "@livekit/components-styles";
-import { api } from "@repo/backend/convex/_generated/api";
+import { api } from "@repo/convex";
 import { LoadingScreen, Text } from "@repo/ui";
 import { useMe } from "../../../lib/Authorization/MeProvider";
 import { PrivatePageWrapper } from "../../../lib/Authorization/PrivatePageWrapper";
