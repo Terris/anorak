@@ -6,7 +6,6 @@
     ".": "./tailwind.config.ts"
   },
   "dependencies": {
-    "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

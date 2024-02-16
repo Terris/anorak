@@ -4,6 +4,7 @@ import { mutation, query } from "./_generated/server";
 import { validateIdentity } from "./lib/authorization";
 import { internal } from "./_generated/api";
 import { validateOrganizationOwnership } from "./lib/ownership";
+import { Id } from "./_generated/dataModel";
 
 // SESSIONED USER ONLY
 // public
@@ -58,18 +59,27 @@ export const sessionedCreateManyAsOrgOwner = mutation({
     });
     const emailList = emails.split(",").map((email) => email.trim());
     await asyncMap(emailList, async (email) => {
-      const organizationInviteId = await ctx.db.insert("organizationInvites", {
-        email,
-        organizationId,
-        role: "user",
-      });
+      const existingInvite = await ctx.db
+        .query("organizationInvites")
+        .withIndex("by_email", (q) => q.eq("email", email))
+        .first();
+
+      // either resend invite email or create new invite and send
+      const emailInviteId = existingInvite
+        ? existingInvite._id
+        : await ctx.db.insert("organizationInvites", {
+            email,
+            organizationId,
+            role: "user",
+          });
+
       await ctx.scheduler.runAfter(
         0,
         internal.organizationInviteActions.systemSendOrgInviteEmailToUser,
         {
           toEmail: email,
           orgName: org.name,
-          inviteToken: organizationInviteId,
+          inviteToken: emailInviteId,
         }
       );
     });

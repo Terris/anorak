@@ -5,6 +5,21 @@ import { validateIdentity } from "./lib/authorization";
 import { validateOrganizationOwnership } from "./lib/ownership";
 
 // SESSIONED USER ONLY
+export const sessionedMeOrganization = query({
+  args: {},
+  handler: async (ctx) => {
+    const { user } = await validateIdentity(ctx);
+    const orgUser = await ctx.db
+      .query("organizationUsers")
+      .withIndex("by_user_id", (q) => q.eq("userId", user._id))
+      .first();
+    if (!orgUser) return null;
+    const organization = await ctx.db.get(orgUser.organizationId);
+    if (!organization) return null;
+    return { ...organization, meIsOwner: organization.ownerId === user._id };
+  },
+});
+
 export const sessionedFindByOwnerId = query({
   args: { userId: v.id("users") },
   handler: async (ctx, { userId }) => {

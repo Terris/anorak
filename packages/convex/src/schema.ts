@@ -15,7 +15,9 @@ export default defineSchema({
     organizationId: v.id("organizations"),
     role: v.string(),
     isClaimed: v.optional(v.boolean()),
-  }).index("by_organization_id", ["organizationId"]),
+  })
+    .index("by_organization_id", ["organizationId"])
+    .index("by_email", ["email"]),
   organizationUsers: defineTable({
     organizationId: v.id("organizations"),
     userId: v.id("users"),
