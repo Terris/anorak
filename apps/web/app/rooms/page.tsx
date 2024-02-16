@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
-import { api } from "@repo/convex";
-import type { Id } from "@repo/convex";
+import { api, type Id } from "@repo/convex";
 import { Button, Text } from "@repo/ui";
 import { PrivatePageWrapper } from "../../lib/Authorization/PrivatePageWrapper";
 import { CreateRoomForm } from "../../lib/Rooms/CreateRoomForm";
 import { Page } from "../../lib/layout/Page";
+// import type { RoomId } from "../../lib/Rooms/types";
 
 export default function RoomsPage() {
   const router = useRouter();
