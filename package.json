@@ -2,12 +2,13 @@
   "name": "cyclical-mono",
   "private": true,
   "scripts": {
-    "build": "turbo build",
+    "build": "turbo build --filter=!@repo/convex",
     "dev": "turbo run dev",
     "lint": "turbo lint",
     "type-check": "turbo type-check",
     "clean": "turbo clean",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "deploy": "cd packages/convex "
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
