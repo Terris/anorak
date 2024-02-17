@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { Button, Input, LoadingScreen, LogoDark, Text } from "@repo/ui";
-import { useOrganizationInvite } from "@repo/organizations/invites";
+import { useOrganizationInviteContext } from "@repo/organizations/invites/context";
 
 export default function RsvpProfilePage() {
   const {
     isLoading: inviteIsLoading,
     completeOnboarding,
     isMutating,
-  } = useOrganizationInvite();
+  } = useOrganizationInviteContext();
   const [step, setStep] = useState(0);
 
   function handleNextStep() {

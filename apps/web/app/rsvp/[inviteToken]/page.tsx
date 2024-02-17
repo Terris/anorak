@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useOrganizationInvite } from "@repo/organizations/invites";
+import { useOrganizationInviteContext } from "@repo/organizations/invites/context";
 import { Button, LoadingScreen, Text } from "@repo/ui";
 import { useMeContext } from "@repo/auth/context";
 import { SignUpButton } from "@clerk/nextjs";
@@ -14,7 +14,7 @@ export default function RsvpPage() {
   const { me, isLoading: meIsLoading } = useMeContext();
 
   const { inviteToken } = useParams();
-  const { invite, isLoading: inviteIsLoading } = useOrganizationInvite();
+  const { invite, isLoading: inviteIsLoading } = useOrganizationInviteContext();
   const orgName = invite?.organization.name;
 
   useEffect(() => {

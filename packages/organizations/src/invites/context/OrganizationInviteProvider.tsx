@@ -9,13 +9,13 @@ import {
   useOrganizationUserAsMe,
   useUpdateOrganizationUserAsMe,
   useCreateOrganizationUserWithInviteAsMe,
-} from "../users/hooks";
-import type { OrganizationUserId } from "../users";
-import { useInviteFromParams } from "./hooks/useInviteFromParams";
+} from "../../users/hooks";
+import type { OrganizationUserId } from "../../users";
+import { useInviteFromParams } from "../hooks/useInviteFromParams";
 import type {
   OrganizationInviteId,
   OrganizationInviteWithOrgDoc,
-} from "./types";
+} from "../types";
 
 interface OrganizationInviteContextProps {
   inviteToken?: OrganizationInviteId;
@@ -123,7 +123,7 @@ export function OrganizationInviteProvider({
   );
 }
 
-export const useOrganizationInvite = () => {
+export const useOrganizationInviteContext = () => {
   const organizationInviteContext = useContext(OrganizationInviteContext);
   return organizationInviteContext;
 };

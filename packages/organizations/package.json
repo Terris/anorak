@@ -9,6 +9,7 @@
     "./users": "./src/users/index.ts",
     "./users/hooks": "./src/users/hooks/index.ts",
     "./invites": "./src/invites/index.ts",
+    "./invites/context": "./src/invites/context/index.ts",
     "./invites/hooks": "./src/invites/hooks/index.ts"
   },
   "scripts": {
