@@ -41,7 +41,9 @@ export default defineSchema({
     email: v.string(),
     tokenIdentifier: v.string(),
     roles: v.optional(v.array(v.string())),
-  }).index("by_token", ["tokenIdentifier"]),
+  })
+    .index("by_token", ["tokenIdentifier"])
+    .index("by_email", ["email"]),
   userWhitelist: defineTable({
     email: v.string(),
   }).index("by_email", ["email"]),

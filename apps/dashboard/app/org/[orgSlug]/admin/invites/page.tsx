@@ -1,28 +1,21 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { api } from "@repo/convex";
-import { useMeOrganizationContext } from "@repo/organizations/context";
 import {
   OrganizationInvitesTable,
   QuickCreateOrganizationInviteForm,
 } from "@repo/organizations/invites";
-import { Text } from "@repo/ui";
+import { useFindAllOrganizationInvitesAsOrgOwner } from "@repo/organizations/invites/hooks";
+import { LoadingBox, Text } from "@repo/ui";
+import { useParams } from "next/navigation";
 
 export default function DashboardPage() {
-  const { isLoading, meOrganization } = useMeOrganizationContext();
-  const invitesQueryArgs = meOrganization
-    ? { organizationId: meOrganization._id }
-    : "skip";
+  const { orgSlug } = useParams();
+  const { invites, isLoading: invitesIsLoading } =
+    useFindAllOrganizationInvitesAsOrgOwner({
+      organizationSlug: orgSlug as string,
+    });
 
-  const invites = useQuery(
-    api.organizationInvites.sessionedFindAllByOrganizationIdAsOrgOwner,
-    invitesQueryArgs
-  );
-
-  const invitesIsLoading = invites === undefined;
-
-  if (isLoading || invitesIsLoading) return null;
+  if (invitesIsLoading) return <LoadingBox />;
 
   return (
     <>
@@ -32,7 +25,7 @@ export default function DashboardPage() {
         </Text>
         <QuickCreateOrganizationInviteForm />
       </div>
-      <OrganizationInvitesTable invites={invites} />
+      {invites ? <OrganizationInvitesTable invites={invites} /> : null}
     </>
   );
 }

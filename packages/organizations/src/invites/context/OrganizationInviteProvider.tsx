@@ -7,22 +7,22 @@ import { LoadingScreen } from "@repo/ui";
 import { useMeContext } from "@repo/auth/context";
 import {
   useGetOrganizationUserAsMe,
-  useUpdateOrganizationUserAsMe,
   useCreateOrganizationUserWithInviteAsMe,
 } from "../../users/hooks";
-import type { OrganizationUserId } from "../../users";
-import { useGetInviteWithTokenParam } from "../hooks/useGetInviteWithTokenParam";
 import type {
   OrganizationInviteId,
   OrganizationInviteWithOrgDoc,
 } from "../types";
+import {
+  useGetInviteWithTokenParam,
+  useCompleteInviteOnboardingAsInviteOwner,
+} from "../hooks";
 
 interface OrganizationInviteContextProps {
   inviteToken?: OrganizationInviteId;
   isLoading: boolean;
   isMutating: boolean;
   invite?: OrganizationInviteWithOrgDoc | null;
-  newOrganizationUserId?: OrganizationUserId | null;
   completeOnboarding: () => void;
 }
 
@@ -59,7 +59,7 @@ export function OrganizationInviteProvider({
   useEffect(() => {
     if (inviteIsLoading) return;
     if (!invite) {
-      router.push("/");
+      router.push(process.env.NEXT_PUBLIC_SITE_URL ?? "/");
     }
   }, [invite, inviteIsLoading, router]);
 
@@ -69,35 +69,40 @@ export function OrganizationInviteProvider({
     });
 
   // CREATE ORG USER
-  const {
-    isLoading: createOrganizationUserIsLoading,
-    createOrganizationUser,
-    newOrganizationUserId,
-  } = useCreateOrganizationUserWithInviteAsMe();
+  const { isLoading: createOrganizationUserIsLoading, createOrganizationUser } =
+    useCreateOrganizationUserWithInviteAsMe();
 
   // SYNC INVITE TO ORGANIZATION USER
-  const canCreateOrgUser =
-    Boolean(me) &&
-    Boolean(inviteToken) &&
-    !organizationUserIsLoading &&
-    !organizationUser &&
-    !createOrganizationUserIsLoading;
-
   useEffect(() => {
+    const canCreateOrgUser =
+      Boolean(me) &&
+      Boolean(inviteToken) &&
+      Boolean(invite) &&
+      !organizationUserIsLoading &&
+      !organizationUser &&
+      !createOrganizationUserIsLoading;
     if (!canCreateOrgUser) return;
     void createOrganizationUser({
       inviteToken: inviteToken as OrganizationInviteId,
     });
-  }, [canCreateOrgUser, createOrganizationUser, inviteToken]);
+  }, [
+    createOrganizationUser,
+    createOrganizationUserIsLoading,
+    invite,
+    inviteToken,
+    me,
+    organizationUser,
+    organizationUserIsLoading,
+  ]);
 
   // COMPLETE ONBOARDING
-  const { updateOrganizationUser, isLoading: completeOnboardinIsLoading } =
-    useUpdateOrganizationUserAsMe();
+  const { completeInviteOnboarding, isLoading: completeOnboardingIsLoading } =
+    useCompleteInviteOnboardingAsInviteOwner();
+
   async function completeOnboarding() {
-    if (!newOrganizationUserId || !invite) return;
-    await updateOrganizationUser({
-      organizationUserId: newOrganizationUserId,
-      onboardingComplete: true,
+    if (!organizationUser || !invite) return;
+    await completeInviteOnboarding({
+      inviteToken: inviteToken as OrganizationInviteId,
       onSuccess: () => {
         router.push(`/org/${invite.organization.slug}`);
       },
@@ -106,7 +111,7 @@ export function OrganizationInviteProvider({
 
   const isLoading = inviteIsLoading || organizationUserIsLoading;
   const isMutating =
-    createOrganizationUserIsLoading || completeOnboardinIsLoading;
+    createOrganizationUserIsLoading || completeOnboardingIsLoading;
 
   return (
     <OrganizationInviteContext.Provider
@@ -114,7 +119,6 @@ export function OrganizationInviteProvider({
         isLoading,
         isMutating,
         invite,
-        newOrganizationUserId,
         completeOnboarding,
       }}
     >

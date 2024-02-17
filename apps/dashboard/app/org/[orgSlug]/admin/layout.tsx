@@ -38,7 +38,7 @@ function DashboardNav() {
 
   if (isLoading || !meOrganization) return <LoadingScreen />;
   return (
-    <div className="w-1/6 flex flex-col">
+    <div className="w-1/6 flex flex-col gap-1">
       <Button
         onClick={() => {
           router.push(`${meOrganizationPath}/admin`);
@@ -46,6 +46,7 @@ function DashboardNav() {
         variant={
           pathname === `${meOrganizationPath}/admin` ? "selected" : "ghost"
         }
+        size="sm"
         className="justify-start"
       >
         {meOrganization.name}
@@ -59,6 +60,7 @@ function DashboardNav() {
             ? "selected"
             : "ghost"
         }
+        size="sm"
         className="justify-start"
       >
         Users
@@ -72,6 +74,7 @@ function DashboardNav() {
             ? "selected"
             : "ghost"
         }
+        size="sm"
         className="justify-start"
       >
         Invites
@@ -85,6 +88,7 @@ function DashboardNav() {
             ? "selected"
             : "ghost"
         }
+        size="sm"
         className="justify-start"
       >
         Usage
@@ -98,6 +102,7 @@ function DashboardNav() {
             ? "selected"
             : "ghost"
         }
+        size="sm"
         className="justify-start"
       >
         Billing
