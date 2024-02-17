@@ -5,6 +5,15 @@ import { buildOrganizationInviteEmailHTML } from "./lib/transactional";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// SYSTEM FUNCTIONS
+// ==================================================
+
+/**
+ * Send an organization invite email to a user.
+ * @param toEmail - The email of the user.
+ * @param orgName - The name of the organization.
+ * @param inviteToken - The invite token.
+ */
 export const systemSendOrgInviteEmailToUser = internalAction({
   args: {
     toEmail: v.string(),

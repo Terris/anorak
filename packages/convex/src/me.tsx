@@ -1,5 +1,12 @@
 import { query } from "./_generated/server";
 
+// SESSIONED USER FUNCTIONS
+// ==================================================
+
+/**
+ * Get the current user via session.
+ * Auth Requirements: Sessioned
+ */
 export const sessionedMe = query({
   args: {},
   handler: async (ctx) => {

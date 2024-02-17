@@ -29,7 +29,7 @@ export function UpdateOrgSpendCapForm({
   const { meOrganization, isLoading } = useMeOrganizationContext();
 
   const updateOrgSpendingCap = useMutation(
-    api.organizations.sessionedUpdateSpendCapAsOrgOwner
+    api.organizations.sessionedUpdateAsOrgOwner
   );
 
   async function onSubmit(values: UpdateOrgSpendCapFormValues) {

@@ -4,10 +4,15 @@ import { internalMutation, mutation, query } from "./_generated/server";
 import { validateIdentity } from "./lib/authorization";
 import { internal } from "./_generated/api";
 import { validateOrganizationOwnership } from "./lib/ownership";
-import { Id } from "./_generated/dataModel";
 
-// SESSIONED USER ONLY
-// public
+// PUBLIC FUNCTIONS
+// ==================================================
+
+/**
+ * Find an organization invite by its token.
+ * Auth Requirements: Public
+ * @param inviteToken - The invite token.
+ */
 export const publicFindOneByInviteToken = query({
   args: { inviteToken: v.id("organizationInvites") },
   handler: async (ctx, { inviteToken }) => {
@@ -25,7 +30,15 @@ export const publicFindOneByInviteToken = query({
   },
 });
 
-// As invite owner (via email)
+// SESSIONED USER FUNCTIONS
+// ==================================================
+
+/**
+ * Complete the onboarding process for an organization invite.
+ * Auth Requirements: Sessioned, Ownership via matching email
+ * @param inviteToken - The invite token.
+ * @param email - The email of the user.
+ */
 export const sessionedCompleteInviteOnboardingAsEmailOwner = mutation({
   args: { inviteToken: v.id("organizationInvites"), email: v.string() },
   handler: async (ctx, { inviteToken, email }) => {
@@ -64,7 +77,11 @@ export const sessionedCompleteInviteOnboardingAsEmailOwner = mutation({
   },
 });
 
-// As Org Owner
+/**
+ * Find all organization invites for the current user.
+ * Auth Requirements: Sessioned, Org Ownership
+ * @param organizationId - The organization id.
+ */
 export const sessionedFindAllByOrganizationSlugAsOrgOwner = query({
   args: { organizationSlug: v.string() },
   handler: async (ctx, { organizationSlug }) => {
@@ -88,6 +105,12 @@ export const sessionedFindAllByOrganizationSlugAsOrgOwner = query({
   },
 });
 
+/**
+ * Create many organization invites for the current user and send invite emails.
+ * Auth Requirements: Sessioned, Org Ownership
+ * @param emails - A comma separated list of emails.
+ * @param organizationId - The organization id.
+ */
 export const sessionedCreateManyAsOrgOwner = mutation({
   args: {
     emails: v.string(),
@@ -150,6 +173,12 @@ export const sessionedCreateManyAsOrgOwner = mutation({
   },
 });
 
+/**
+ * Delete an organization invite as org owner.
+ * Auth Requirements: Sessioned, Org Ownership
+ * @param organizationId - The organization id.
+ * @param inviteId - The invite id.
+ */
 export const sessionedDeleteOrganizationInviteAsOrgOwner = mutation({
   args: {
     organizationId: v.id("organizations"),
@@ -167,6 +196,11 @@ export const sessionedDeleteOrganizationInviteAsOrgOwner = mutation({
 });
 
 // INTERNAL FUNCTIONS
+
+/**
+ * Delete an organization invite.
+ * @param inviteId - The invite id.
+ */
 export const systemDeleteInvite = internalMutation({
   args: { inviteId: v.id("organizationInvites") },
   handler: async (ctx, { inviteId }) => {

@@ -1,7 +1,13 @@
 import { v } from "convex/values";
 import { internalMutation, internalQuery, query } from "./_generated/server";
 
-// SESSIONED USERS ONLY
+// SESSIONED USER FUNCTIONS
+// ==================================================
+
+/**
+ * Get the user for the current session.
+ * Auth Requirements: Sessioned
+ */
 export const sessionedFindByContextIdentity = query({
   args: {},
   handler: async (ctx) => {
@@ -16,7 +22,14 @@ export const sessionedFindByContextIdentity = query({
   },
 });
 
-// INTERNAL
+// INTERNAL FUNCTIONS
+// ==================================================
+
+/**
+ * Find a user by its id.
+ * Auth Requirements: Internal
+ * @param id - The user id.
+ */
 export const systemFindById = internalQuery({
   args: { id: v.id("users") },
   handler: async (ctx, { id }) => {
@@ -24,6 +37,14 @@ export const systemFindById = internalQuery({
   },
 });
 
+/**
+ * Create a new db user based on new clerk user via webhook
+ * Auth Requirements: Internal
+ * @param clerkId - The clerk id.
+ * @param email - The email of the user.
+ * @param name - The name of the user.
+ * @param roles - The roles of the user.
+ */
 export const systemSaveNewClerkUser = internalMutation({
   args: {
     clerkId: v.string(),

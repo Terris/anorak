@@ -3,9 +3,15 @@ import { mutation, query } from "./_generated/server";
 import { validateIdentity } from "./lib/authorization";
 import { validateOrganizationUserOwnership } from "./lib/ownership";
 
-// SESSIONED
+// SESSIONED USER FUNCTIONS
+// ==================================================
 
-// read
+/**
+ * Find an organization user by its organization and user id.
+ * Auth Requirements: Sessioned
+ * @param organizationId - The organization id.
+ * @param userId - The user id.
+ */
 export const sessionedFindOneByOrgIdUserId = query({
   args: { organizationId: v.id("organizations"), userId: v.id("users") },
   handler: async (ctx, { organizationId, userId }) => {
@@ -19,7 +25,13 @@ export const sessionedFindOneByOrgIdUserId = query({
   },
 });
 
-// create
+/**
+ * Create a new organization user.
+ * Auth Requirements: Sessioned, Ownership via matching email
+ * TODO: we should really be validating ownership via sessioned user's email
+ * @param organizationId - The organization id.
+ * @param userId - The user id.
+ */
 export const sessionedCreateOneByInviteTokenUserId = mutation({
   args: { inviteToken: v.id("organizationInvites"), userId: v.id("users") },
   handler: async (ctx, { inviteToken, userId }) => {
@@ -45,7 +57,12 @@ export const sessionedCreateOneByInviteTokenUserId = mutation({
   },
 });
 
-// update
+/**
+ * Update an organization user as the owner.
+ * Auth Requirements: Sessioned, Ownership
+ * @param organizationUserId - The organization user id.
+ * @param onboardingComplete - Whether the onboarding is complete.
+ */
 export const sessionedUpdateOrganizationUserAsOwner = mutation({
   args: {
     organizationUserId: v.id("organizationUsers"),

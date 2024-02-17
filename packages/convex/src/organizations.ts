@@ -1,10 +1,22 @@
 import { v } from "convex/values";
 import type { MutationCtx } from "./_generated/server";
-import { mutation, query } from "./_generated/server";
+import {
+  internalMutation,
+  internalQuery,
+  mutation,
+  query,
+} from "./_generated/server";
 import { validateIdentity } from "./lib/authorization";
 import { validateOrganizationOwnership } from "./lib/ownership";
+import { internal } from "./_generated/api";
 
-// SESSIONED USER ONLY
+// SESSIONED USER FUNCTIONS
+// ==================================================
+
+/**
+ * Get the organization for the current user.
+ * Auth Requirements: Sessioned
+ */
 export const sessionedMeOrganization = query({
   args: {},
   handler: async (ctx) => {
@@ -20,6 +32,11 @@ export const sessionedMeOrganization = query({
   },
 });
 
+/**
+ * Get an organization by its id.
+ * Auth Requirements: Sessioned
+ * @param id - The organization id.
+ */
 export const sessionedFindByOwnerId = query({
   args: { userId: v.id("users") },
   handler: async (ctx, { userId }) => {
@@ -31,19 +48,11 @@ export const sessionedFindByOwnerId = query({
   },
 });
 
-export const sessionedFindByOrganizationUser = query({
-  args: {},
-  handler: async (ctx) => {
-    const { user } = await validateIdentity(ctx);
-    const orgUser = await ctx.db
-      .query("organizationUsers")
-      .withIndex("by_user_id", (q) => q.eq("userId", user._id))
-      .first();
-    if (!orgUser) return null;
-    return ctx.db.get(orgUser.organizationId);
-  },
-});
-
+/**
+ * Create a new organization, set the current user as the owner, and schedule the creation of the stripe customer.
+ * Auth Requirements: Sessioned
+ * @param name - The name of the organization.
+ */
 export const sessionedCreate = mutation({
   args: { name: v.string() },
   handler: async (ctx, { name }) => {
@@ -67,12 +76,29 @@ export const sessionedCreate = mutation({
       onboardingComplete: false,
     });
 
+    // schedule the creation of the stripe customer
+    await ctx.scheduler.runAfter(
+      0,
+      internal.organizationActions.systemCreateOrganizationStripeCustomer,
+      {
+        organizationId: newOrganizationId,
+      }
+    );
+
     return newOrganizationId;
   },
 });
 
-// Organization Owner
-export const sessionedUpdateSpendCapAsOrgOwner = mutation({
+// ORG OWNER FUNCTIONS
+// ==================================================
+
+/**
+ * Update the organization.
+ * Auth Requirements: Sessioned, Org Ownership
+ * @param organizationId - The organization id.
+ * @param spendCapInCents - The new spend cap in cents.
+ */
+export const sessionedUpdateAsOrgOwner = mutation({
   args: {
     organizationId: v.id("organizations"),
     spendCapInCents: v.number(),
@@ -88,7 +114,42 @@ export const sessionedUpdateSpendCapAsOrgOwner = mutation({
   },
 });
 
-// PRIVATE FUNCTIONS
+// SYSTEM FUNCTIONS
+// ==================================================
+
+/**
+ * Get the organization by its id.
+ * @param id - The organization id.
+ */
+export const systemGetOrganizationById = internalQuery({
+  args: { id: v.id("organizations") },
+  handler: async (ctx, { id }) => {
+    return ctx.db.get(id);
+  },
+});
+
+/**
+ * Update an organization by its id.
+ * @param id - The organization id.
+ */
+export const systemUpdateById = internalMutation({
+  args: { id: v.id("organizations"), stripeCustomerId: v.optional(v.string()) },
+  handler: async (ctx, { id, stripeCustomerId }) => {
+    return ctx.db.patch(id, { stripeCustomerId });
+  },
+});
+
+// PRIVATE HELPER FUNCTIONS
+// ==================================================
+
+/**
+ * Create a unique slug for an organization.
+ * Private helper function.
+ * @param ctx - The mutation context.
+ * @param name - The name of the organization.
+ * @param existingCount - The existing count.
+ * @returns The unique slug.
+ */
 const createUniqueSlug = async (
   ctx: MutationCtx,
   name: string,
