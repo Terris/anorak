@@ -101,16 +101,23 @@ export const sessionedCreate = mutation({
 export const sessionedUpdateAsOrgOwner = mutation({
   args: {
     organizationId: v.id("organizations"),
-    spendCapInCents: v.number(),
+    spendCapInCents: v.optional(v.number()),
+    stripePaymentMethodId: v.optional(v.string()),
   },
-  handler: async (ctx, { organizationId, spendCapInCents }) => {
+  handler: async (
+    ctx,
+    { organizationId, spendCapInCents, stripePaymentMethodId }
+  ) => {
     const { user } = await validateIdentity(ctx);
     await validateOrganizationOwnership({
       ctx,
       userId: user._id,
       organizationId,
     });
-    return ctx.db.patch(organizationId, { spendCapInCents });
+    return ctx.db.patch(organizationId, {
+      spendCapInCents,
+      stripePaymentMethodId,
+    });
   },
 });
 

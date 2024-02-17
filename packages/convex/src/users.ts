@@ -38,6 +38,21 @@ export const systemFindById = internalQuery({
 });
 
 /**
+ * Find a user by its token identifier.
+ * Auth Requirements: Internal
+ * @param tokenIdentifier - The token identifier.
+ */
+export const systemFindByTokenIdentifier = internalQuery({
+  args: { tokenIdentifier: v.string() },
+  handler: async (ctx, { tokenIdentifier }) => {
+    return ctx.db
+      .query("users")
+      .withIndex("by_token", (q) => q.eq("tokenIdentifier", tokenIdentifier))
+      .first();
+  },
+});
+
+/**
  * Create a new db user based on new clerk user via webhook
  * Auth Requirements: Internal
  * @param clerkId - The clerk id.

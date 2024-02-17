@@ -18,7 +18,7 @@ export default function OrgDashboardLayout({
   return (
     <PrivatePageWrapper>
       <MeOrganizationProvider>
-        <div className="w-full p-8 flex flex-col gap-8 md:flex-row">
+        <div className="w-full p-8 flex flex-col md:flex-row md:gap-16">
           <DashboardNav />
           <div className="w-5/6">{children}</div>
         </div>
@@ -38,7 +38,7 @@ function DashboardNav() {
 
   if (isLoading || !meOrganization) return <LoadingScreen />;
   return (
-    <div className="w-1/6 flex flex-col gap-1">
+    <div className="flex flex-col gap-1 md:w-1/6 ">
       <Button
         onClick={() => {
           router.push(`${meOrganizationPath}/admin`);

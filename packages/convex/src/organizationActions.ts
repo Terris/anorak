@@ -1,11 +1,39 @@
 "use node";
 
-import { v } from "convex/values";
-import { internalAction } from "./_generated/server";
-import { stripe } from "./lib/stripe";
+import Stripe from "stripe";
+import { v, ConvexError } from "convex/values";
+import { internalAction, action } from "./_generated/server";
 import { internal } from "./_generated/api";
+import { validateActionIdentity } from "./lib/authorization";
+import { stripe } from "./lib/stripe";
+import { validateActionOrganizationOwnership } from "./lib/ownership";
 
-// SYSTEM FUNCTIONS
+// SESSIONED ACTION FUNCTIONS
+// ==================================================
+
+export const sessionedOrganizationCreateSetupIntentAsOrgOwner = action({
+  args: { organizationId: v.id("organizations") },
+  handler: async (ctx, { organizationId }) => {
+    const { user } = await validateActionIdentity(ctx);
+    const { organization } = await validateActionOrganizationOwnership({
+      ctx,
+      userId: user._id,
+      organizationId,
+    });
+
+    const setupIntent: Stripe.SetupIntent = await stripe.setupIntents.create({
+      customer: organization.stripeCustomerId,
+      metadata: {
+        organizationId: organizationId,
+      },
+      usage: "off_session",
+    });
+
+    return setupIntent;
+  },
+});
+
+// SYSTEM ACTION FUNCTIONS
 // ==================================================
 
 /**
@@ -19,7 +47,7 @@ export const systemCreateOrganizationStripeCustomer = internalAction({
       internal.organizations.systemGetOrganizationById,
       { id: organizationId }
     );
-    if (!organization) throw new Error("Organization not found");
+    if (!organization) throw new ConvexError("Organization not found");
 
     const organizationOwnerUser = await ctx.runQuery(
       internal.users.systemFindById,
@@ -27,7 +55,8 @@ export const systemCreateOrganizationStripeCustomer = internalAction({
         id: organization.ownerId,
       }
     );
-    if (!organizationOwnerUser) throw new Error("Organization owner not found");
+    if (!organizationOwnerUser)
+      throw new ConvexError("Organization owner not found");
 
     const stripeCustomer = await stripe.customers.create({
       name: organization.name,

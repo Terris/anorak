@@ -118,7 +118,7 @@ export const sessionedCreateManyAsOrgOwner = mutation({
   },
   handler: async (ctx, { emails, organizationId }) => {
     const { user } = await validateIdentity(ctx);
-    const { org } = await validateOrganizationOwnership({
+    const { organization } = await validateOrganizationOwnership({
       ctx,
       userId: user._id,
       organizationId,
@@ -164,7 +164,7 @@ export const sessionedCreateManyAsOrgOwner = mutation({
         internal.organizationInviteActions.systemSendOrgInviteEmailToUser,
         {
           toEmail: email,
-          orgName: org.name,
+          orgName: organization.name,
           inviteToken: emailInviteId,
         }
       );

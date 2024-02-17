@@ -53,6 +53,12 @@ importers:
       '@repo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@stripe/react-stripe-js':
+        specifier: ^2.5.0
+        version: 2.5.0(@stripe/stripe-js@3.0.3)(react-dom@18.2.0)(react@18.2.0)
+      '@stripe/stripe-js':
+        specifier: ^3.0.3
+        version: 3.0.3
       '@tanstack/react-table':
         specifier: ^8.12.0
         version: 8.12.0(react-dom@18.2.0)(react@18.2.0)
@@ -2498,6 +2504,24 @@ packages:
 
   /@stablelib/base64@1.0.1:
     resolution: {integrity: sha512-1bnPQqSxSuc3Ii6MhBysoWCg58j97aUjuCSZrGSmDxNqtytIi0k8utUenAwTZN4V5mXXYGsVUI9zeBqy+jBOSQ==}
+    dev: false
+
+  /@stripe/react-stripe-js@2.5.0(@stripe/stripe-js@3.0.3)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ys5bnrufNoBlUPRblWkiN7dUCX3s2noBZS0Lf5GkHYO9x3SXJMZccif53IdP4X6tZyNLn7aSMgZBUZqsdzrvhg==}
+    peerDependencies:
+      '@stripe/stripe-js': ^1.44.1 || ^2.0.0 || ^3.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@stripe/stripe-js': 3.0.3
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@stripe/stripe-js@3.0.3:
+    resolution: {integrity: sha512-UrHQ0hvDCZzpJEaOLbTRme1jREFzCuBe6eeHzowLtsS65Ah9pM+8bivXAyQUGHaAE2nPLu4lDvuDHPStPlrZUQ==}
+    engines: {node: '>=12.16'}
     dev: false
 
   /@swc/helpers@0.5.2:

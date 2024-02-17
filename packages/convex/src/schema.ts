@@ -8,6 +8,7 @@ export default defineSchema({
     ownerId: v.id("users"),
     spendCapInCents: v.optional(v.number()),
     stripeCustomerId: v.optional(v.string()),
+    stripePaymentMethodId: v.optional(v.string()),
   })
     .index("by_slug", ["slug"])
     .index("by_owner_id", ["ownerId"]),
