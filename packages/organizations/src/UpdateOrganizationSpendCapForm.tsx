@@ -5,7 +5,7 @@ import { Field, Form, Formik } from "formik";
 import { api } from "@repo/convex";
 import { useMeContext } from "@repo/auth/context";
 import { useToast } from "@repo/ui/hooks";
-import { Button, CurrencyInput, Text } from "@repo/ui";
+import { Button, CurrencyInput, Loader, Text } from "@repo/ui";
 import { useMeOrganizationContext } from "./context/MeOrganizationContext";
 import type { OrganizationId } from "./types";
 
@@ -82,6 +82,7 @@ export function UpdateOrgSpendCapForm({
               )}
             </Field>
             <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? <Loader className="mr-2" /> : null}
               Next
             </Button>
           </div>

@@ -3,7 +3,7 @@ import { useMutation } from "convex/react";
 import type { FieldProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import { api } from "@repo/convex";
-import { Button, LoadingBox, Text, Textarea } from "@repo/ui";
+import { Button, Loader, LoadingBox, Text, Textarea } from "@repo/ui";
 import { useToast } from "@repo/ui/hooks";
 import { useMeContext } from "@repo/auth/context";
 import { useMeOrganizationContext } from "../context/MeOrganizationContext";
@@ -86,6 +86,7 @@ export function CreateOrganizationInvitesForm({
               Skip
             </Button>
             <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? <Loader className="mr-2" /> : null}
               Send invites and finish
             </Button>
           </div>

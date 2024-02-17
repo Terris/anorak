@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { api } from "@repo/convex";
 import { useMeContext } from "@repo/auth/context";
 import { useToast } from "@repo/ui/hooks";
-import { Button, Input, Text } from "@repo/ui";
+import { Button, Input, Loader, Text } from "@repo/ui";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string(),
@@ -68,6 +68,7 @@ export function CreateOrganizationForm({
               )}
             </Field>
             <Button variant="outline" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? <Loader className="mr-2" /> : null}
               Next
             </Button>
           </div>

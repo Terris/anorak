@@ -16,6 +16,7 @@ import { Label } from "./Label";
 import { Input } from "./Input";
 import { Switch } from "./Switch";
 import { Text } from "./Text";
+import { Loader } from "./Loader";
 
 export interface SimpleFormConfig<CustomFormValues> {
   validationSchema: unknown;
@@ -87,6 +88,7 @@ export function SimpleForm<CustomFormValues extends FormikValues>({
           </div>
           <div className="flex flex-row items-center justify-end">
             <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? <Loader className="mr-2" /> : null}
               {submitButtonLabel ?? "Save"}
             </Button>
           </div>
@@ -138,7 +140,6 @@ export function SimpleFormField({
             options={options}
             // eslint-disable-next-line -- Temporarily avoids the lint error problem. Not sure wtf.
             value={field.value}
-            // eslint-disable-next-line -- Temporarily avoids the lint error problem. Not sure wtf.
             setValue={helpers.setValue}
           />
         );
@@ -148,7 +149,6 @@ export function SimpleFormField({
             name={field.name}
             // eslint-disable-next-line -- Temporarily avoids the lint error problem. Not sure wtf.
             value={field.value}
-            // eslint-disable-next-line -- Temporarily avoids the lint error problem. Not sure wtf.
             setValue={helpers.setValue}
             className="mt-2"
           />

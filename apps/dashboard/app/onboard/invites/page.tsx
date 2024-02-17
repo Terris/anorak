@@ -37,12 +37,7 @@ export default function OnboardInvitesPage() {
     router.push(`/org/${meOrganization.slug}`);
   }
 
-  if (
-    meOrganizationIsLoading ||
-    orgUserMutationIsLoading ||
-    orgUserIsLoading ||
-    !meOrganization
-  )
+  if (meOrganizationIsLoading || orgUserIsLoading || !meOrganization)
     return <LoadingBox />;
 
   return (
