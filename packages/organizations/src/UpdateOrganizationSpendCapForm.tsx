@@ -6,7 +6,7 @@ import { api } from "@repo/convex";
 import { useMeContext } from "@repo/auth/context";
 import { useToast } from "@repo/ui/hooks";
 import { Button, CurrencyInput, Text } from "@repo/ui";
-import { useMeOrganization } from "./MeOrganizationProvider";
+import { useMeOrganizationContext } from "./context/MeOrganizationContext";
 import type { OrganizationId } from "./types";
 
 const validationSchema = Yup.object().shape({
@@ -26,7 +26,7 @@ export function UpdateOrgSpendCapForm({
 }: UpdateOrgSpendCapFormProps) {
   const { toast } = useToast();
   const { me } = useMeContext();
-  const { meOrganization, isLoading } = useMeOrganization();
+  const { meOrganization, isLoading } = useMeOrganizationContext();
 
   const updateOrgSpendingCap = useMutation(
     api.organizations.sessionedUpdateSpendCapAsOrgOwner

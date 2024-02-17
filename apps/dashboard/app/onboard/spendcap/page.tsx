@@ -2,15 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { Text } from "@repo/ui";
+import { useMeOrganizationContext } from "@repo/organizations/context";
 import {
-  useMeOrganization,
   UpdateOrgSpendCapForm,
   type OrganizationId,
 } from "@repo/organizations";
 
 export default function OnboardSpendCapPage() {
   const router = useRouter();
-  const { meOrganization, isLoading } = useMeOrganization();
+  const { meOrganization, isLoading } = useMeOrganizationContext();
 
   if (isLoading || !meOrganization) return null;
 

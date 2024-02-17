@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { api } from "@repo/convex";
-import { useMeOrganization } from "@repo/organizations";
+import { useMeOrganizationContext } from "@repo/organizations/context";
 import {
   OrganizationInvitesTable,
   QuickCreateOrganizationInviteForm,
@@ -10,7 +10,7 @@ import {
 import { Text } from "@repo/ui";
 
 export default function DashboardPage() {
-  const { isLoading, meOrganization } = useMeOrganization();
+  const { isLoading, meOrganization } = useMeOrganizationContext();
   const invitesQueryArgs = meOrganization
     ? { organizationId: meOrganization._id }
     : "skip";

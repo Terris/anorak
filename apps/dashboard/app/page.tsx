@@ -1,12 +1,12 @@
 "use client";
 
-import { useMeOrganization } from "@repo/organizations";
+import { useMeOrganizationContext } from "@repo/organizations/context";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const { meOrganization, isLoading } = useMeOrganization();
+  const { meOrganization, isLoading } = useMeOrganizationContext();
 
   useEffect(() => {
     if (isLoading) return;

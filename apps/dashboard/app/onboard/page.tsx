@@ -3,11 +3,12 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Text } from "@repo/ui";
-import { CreateOrganizationForm, useMeOrganization } from "@repo/organizations";
+import { CreateOrganizationForm } from "@repo/organizations";
+import { useMeOrganizationContext } from "@repo/organizations/context";
 
 export default function OnboardOrgPage() {
   const router = useRouter();
-  const { meOrganization, isLoading } = useMeOrganization();
+  const { meOrganization, isLoading } = useMeOrganizationContext();
 
   useEffect(() => {
     if (isLoading) return;

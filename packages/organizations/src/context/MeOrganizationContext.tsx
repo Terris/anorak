@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 import { createContext, useContext, useEffect } from "react";
 import { LoadingScreen } from "@repo/ui";
 import { useRouter } from "next/navigation";
-import { useGetMeOrganization } from "./hooks/useGetMeOrganization";
-import type { MeOrganizationDoc } from "./types";
+import { useGetMeOrganization } from "../hooks/useGetMeOrganization";
+import type { MeOrganizationDoc } from "../types";
 
 interface OrganizationContextProps {
   isLoading: boolean;
@@ -42,14 +42,14 @@ export function MeOrganizationProvider({
   );
 }
 
-export const useMeOrganization = () => {
+export const useMeOrganizationContext = () => {
   const organizationContext = useContext(OrganizationContext);
   return organizationContext;
 };
 
 export function useRedirectIfNotMeOrgOwner({ toHref }: { toHref: string }) {
   const router = useRouter();
-  const { meOrganization, isLoading } = useMeOrganization();
+  const { meOrganization, isLoading } = useMeOrganizationContext();
   useEffect(() => {
     if (isLoading) return;
     if (!meOrganization || !meOrganization.meIsOwner) {

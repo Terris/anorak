@@ -7,7 +7,7 @@ import { api } from "@repo/convex";
 import { useMeContext } from "@repo/auth/context";
 import { useToast } from "@repo/ui/hooks";
 import { SimpleDialogForm, Button, type SimpleFormConfig } from "@repo/ui";
-import { useMeOrganization } from "../MeOrganizationProvider";
+import { useMeOrganizationContext } from "../context/MeOrganizationContext";
 
 interface CreateOrganizationInvitesFormFields {
   emails: string;
@@ -26,7 +26,7 @@ const initialValues = {
 export function QuickCreateOrganizationInviteForm() {
   const { toast } = useToast();
   const { me } = useMeContext();
-  const { meOrganization } = useMeOrganization();
+  const { meOrganization } = useMeOrganizationContext();
   const createOrganizationInvites = useMutation(
     api.organizationInvites.sessionedCreateManyAsOrgOwner
   );

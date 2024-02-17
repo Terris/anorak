@@ -7,12 +7,12 @@ import { SignInButton, UserButton } from "@clerk/nextjs";
 import { LogoDark, LogoLight } from "@repo/ui";
 import { ThemeModeToggle } from "@repo/ui/ThemeModeToggle";
 import { useMeContext } from "@repo/auth/context";
-import { useMeOrganization } from "@repo/organizations";
+import { useMeOrganizationContext } from "@repo/organizations/context";
 
 export function Masthead() {
   const { resolvedTheme } = useTheme();
   const { isAuthenticated, me } = useMeContext();
-  const { meOrganization } = useMeOrganization();
+  const { meOrganization } = useMeOrganizationContext();
 
   const path = usePathname();
 
@@ -34,17 +34,17 @@ export function Masthead() {
 
       {me?.isAuthorizedUser && meOrganization ? (
         <div className="flex flex-row gap-8 ml-auto mr-8">
-          <Link href={`/org/${meOrganization.slug}`} className="font-bold">
-            Dashboard
-          </Link>
           {meOrganization.meIsOwner ? (
             <Link
               href={`/org/${meOrganization.slug}/admin`}
               className="font-bold"
             >
-              {meOrganization.name} Settings
+              {meOrganization.name}
             </Link>
           ) : null}
+          <Link href={`/org/${meOrganization.slug}`} className="font-bold">
+            My Dashboard
+          </Link>
         </div>
       ) : null}
 

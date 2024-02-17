@@ -5,9 +5,9 @@ import { Button, LoadingScreen } from "@repo/ui";
 import { PrivatePageWrapper } from "@repo/auth";
 import {
   MeOrganizationProvider,
-  useMeOrganization,
-  type OrganizationDoc,
-} from "@repo/organizations";
+  useMeOrganizationContext,
+} from "@repo/organizations/context";
+import { type OrganizationDoc } from "@repo/organizations";
 
 export default function OrgDashboardLayout({
   children,
@@ -30,7 +30,7 @@ export default function OrgDashboardLayout({
 function DashboardNav() {
   const router = useRouter();
   const pathname = usePathname();
-  const { isLoading, meOrganization } = useMeOrganization();
+  const { isLoading, meOrganization } = useMeOrganizationContext();
 
   const meOrganizationPath = meOrganization
     ? `/org/${meOrganization.slug}`

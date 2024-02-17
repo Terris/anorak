@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { LoadingBox, Text } from "@repo/ui";
 import { CreateOrganizationInvitesForm } from "@repo/organizations/invites";
-import { useMeOrganization } from "@repo/organizations";
+import { useMeOrganizationContext } from "@repo/organizations/context";
 import {
   useOrganizationUserAsMe,
   useUpdateOrganizationUserAsMe,
@@ -13,7 +13,7 @@ export default function OnboardInvitesPage() {
   const router = useRouter();
 
   const { meOrganization, isLoading: meOrganizationIsLoading } =
-    useMeOrganization();
+    useMeOrganizationContext();
 
   const { isLoading: orgUserIsLoading, organizationUser } =
     useOrganizationUserAsMe({ organizationId: meOrganization?._id });

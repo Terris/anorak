@@ -4,6 +4,7 @@
   "private": true,
   "exports": {
     ".": "./src/index.ts",
+    "./context": "./src/context/index.ts",
     "./hooks": "./src/hooks/index.ts",
     "./users": "./src/users/index.ts",
     "./users/hooks": "./src/users/hooks/index.ts",

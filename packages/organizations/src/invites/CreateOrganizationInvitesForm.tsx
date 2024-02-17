@@ -6,7 +6,7 @@ import { api } from "@repo/convex";
 import { Button, LoadingBox, Text, Textarea } from "@repo/ui";
 import { useToast } from "@repo/ui/hooks";
 import { useMeContext } from "@repo/auth/context";
-import { useMeOrganization } from "../MeOrganizationProvider";
+import { useMeOrganizationContext } from "../context/MeOrganizationContext";
 import type { OrganizationId } from "../types";
 
 const validationSchema = Yup.object().shape({
@@ -30,7 +30,7 @@ export function CreateOrganizationInvitesForm({
   const { toast } = useToast();
   const { me } = useMeContext();
   const { meOrganization, isLoading: meOrganizationIsLoading } =
-    useMeOrganization();
+    useMeOrganizationContext();
   const createOrganizationInvites = useMutation(
     api.organizationInvites.sessionedCreateManyAsOrgOwner
   );
