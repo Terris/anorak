@@ -82,7 +82,12 @@ export function CreateOrganizationInvitesForm({
             )}
           </Field>
           <div className="flex flex-row justify-end items-center gap-4 mt-4">
-            <Button type="button" variant="outline" onClick={() => onSkip?.()}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onSkip?.()}
+              disabled={isSubmitting}
+            >
               Skip
             </Button>
             <Button type="submit" disabled={isSubmitting}>
