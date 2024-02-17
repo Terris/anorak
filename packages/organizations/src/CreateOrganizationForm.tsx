@@ -71,7 +71,7 @@ export function CreateOrganizationForm({
                 </>
               )}
             </Field>
-            <Button type="submit" disabled={isSubmitting}>
+            <Button variant="outline" type="submit" disabled={isSubmitting}>
               Next
             </Button>
           </div>

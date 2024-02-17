@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Loader, Text } from "@repo/ui";
+import { LoadingBox, Text } from "@repo/ui";
 import { CreateOrganizationInvitesForm } from "@repo/organizations/invites";
 import { useMeOrganization } from "@repo/organizations";
 import {
@@ -43,13 +43,13 @@ export default function OnboardInvitesPage() {
     orgUserIsLoading ||
     !meOrganization
   )
-    return <Loader />;
+    return <LoadingBox />;
 
   return (
     <>
       <Text className="text-lg pb-4">
-        Invite your team. These users will not have access to billing or org
-        settings.
+        Invite your team. These users will not have access to your billing or
+        organization settings.
       </Text>
 
       <CreateOrganizationInvitesForm

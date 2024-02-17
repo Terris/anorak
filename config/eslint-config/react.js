@@ -40,6 +40,7 @@ module.exports = {
     ".eslintrc.js",
     "**/*.css",
     "tsup.config.ts",
+    "tailwind.config.js",
   ],
   // add rules configurations here
   rules: {},

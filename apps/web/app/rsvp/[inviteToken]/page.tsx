@@ -97,7 +97,9 @@ export default function RsvpPage() {
         <Text className="pb-4">Set up is quick and painless.</Text>
         <SignUpButton
           mode="modal"
-          afterSignUpUrl={`/rsvp/${inviteToken as string}/questionaire`}
+          afterSignUpUrl={`${process.env.NEXT_PUBLIC_DASHBOARD_URL}/rsvp/${
+            inviteToken as string
+          }/questionaire`}
         >
           <Button className="w-full">Let&rsquo;s get started!</Button>
         </SignUpButton>

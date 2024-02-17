@@ -9,7 +9,7 @@ export default function OnboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="my-8 mx-auto md:w-1/3">
+    <div className="my-8 mx-auto md:w-[600px]">
       <Text as="h2" className="text-2xl font-tuna">
         We&rsquo;re so happy you&rsquo;re with us.
       </Text>

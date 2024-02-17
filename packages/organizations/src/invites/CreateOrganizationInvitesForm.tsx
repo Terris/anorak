@@ -3,9 +3,10 @@ import { useMutation } from "convex/react";
 import type { FieldProps, FormikHelpers } from "formik";
 import { Field, Form, Formik } from "formik";
 import { api } from "@repo/convex";
-import { Button, Text, Textarea } from "@repo/ui";
+import { Button, LoadingBox, Text, Textarea } from "@repo/ui";
 import { useToast } from "@repo/ui/hooks";
 import { useMeContext } from "@repo/auth/context";
+import { useMeOrganization } from "../MeOrganizationProvider";
 import type { OrganizationId } from "../types";
 
 const validationSchema = Yup.object().shape({
@@ -28,6 +29,8 @@ export function CreateOrganizationInvitesForm({
 }: CreateOrganizationInvitesFormProps) {
   const { toast } = useToast();
   const { me } = useMeContext();
+  const { meOrganization, isLoading: meOrganizationIsLoading } =
+    useMeOrganization();
   const createOrganizationInvites = useMutation(
     api.organizationInvites.sessionedCreateManyAsOrgOwner
   );
@@ -54,6 +57,8 @@ export function CreateOrganizationInvitesForm({
     }
   }
 
+  if (meOrganizationIsLoading) return <LoadingBox />;
+
   return (
     <Formik<CreateOrganizationInvitesFormValues>
       initialValues={{
@@ -68,7 +73,9 @@ export function CreateOrganizationInvitesForm({
             {({ field, meta }: FieldProps) => (
               <>
                 <Textarea
-                  placeholder="user.one@example.com, user.two@example.com"
+                  placeholder={`one@${
+                    meOrganization?.slug ?? "example"
+                  }.com, two@${meOrganization?.slug ?? "example"}.com`}
                   {...field}
                   className="mr-2"
                 />
@@ -78,17 +85,12 @@ export function CreateOrganizationInvitesForm({
               </>
             )}
           </Field>
-          <div className="flex flex-row justify-end items-center mt-4">
-            <Button
-              type="button"
-              variant="outline"
-              className="mr-4"
-              onClick={() => onSkip?.()}
-            >
+          <div className="flex flex-row justify-end items-center gap-4 mt-4">
+            <Button type="button" variant="outline" onClick={() => onSkip?.()}>
               Skip
             </Button>
             <Button type="submit" disabled={isSubmitting}>
-              Invite &amp; Finish
+              Send invites and finish
             </Button>
           </div>
         </Form>

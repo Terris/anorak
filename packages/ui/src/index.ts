@@ -10,6 +10,7 @@ export * from "./DropdownMenu";
 export * from "./Input";
 export * from "./Label";
 export * from "./Loader";
+export * from "./LoadingBox";
 export * from "./LoadingScreen";
 export * from "./LogoDark";
 export * from "./LogoLight";

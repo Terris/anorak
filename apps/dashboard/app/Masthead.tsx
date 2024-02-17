@@ -37,6 +37,14 @@ export function Masthead() {
           <Link href={`/org/${meOrganization.slug}`} className="font-bold">
             Dashboard
           </Link>
+          {meOrganization.meIsOwner ? (
+            <Link
+              href={`/org/${meOrganization.slug}/admin`}
+              className="font-bold"
+            >
+              {meOrganization.name} Settings
+            </Link>
+          ) : null}
         </div>
       ) : null}
 

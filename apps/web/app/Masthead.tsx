@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { SignInButton, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import { useMeContext } from "@repo/auth/context";
-import { LogoDark, LogoLight } from "@repo/ui";
+import { LogoDark, LogoLight, Text } from "@repo/ui";
 import { ThemeModeToggle } from "@repo/ui/ThemeModeToggle";
 
 export function Masthead() {
@@ -32,7 +32,7 @@ export function Masthead() {
       </Link>
 
       {Boolean(isHomePath) && (
-        <div className="flex flex-row gap-8 mr-auto ml-4">
+        <div className="flex flex-row items-center gap-8 mr-auto ml-4">
           <Link href="/" className="font-bold">
             How it works
           </Link>
@@ -42,9 +42,13 @@ export function Masthead() {
           <Link href="/" className="font-bold">
             FAQs
           </Link>
-          <Link href="/" className="font-bold">
-            Get Started
-          </Link>
+          <SignUpButton mode="modal">
+            <button type="button">
+              <Text as="span" className="text-sm font-bold">
+                Get Started
+              </Text>
+            </button>
+          </SignUpButton>
         </div>
       )}
       {me?.isAuthorizedUser && me.organization?.slug ? (
