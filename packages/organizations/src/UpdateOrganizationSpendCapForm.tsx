@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useMutation } from "convex/react";
-import type { FieldProps, FormikHelpers } from "formik";
+import type { FieldProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import { api } from "@repo/convex";
 import { useMeContext } from "@repo/auth/context";
@@ -32,10 +32,7 @@ export function UpdateOrgSpendCapForm({
     api.organizations.sessionedUpdateSpendCapAsOrgOwner
   );
 
-  async function onSubmit(
-    values: UpdateOrgSpendCapFormValues,
-    actions: FormikHelpers<UpdateOrgSpendCapFormValues>
-  ) {
+  async function onSubmit(values: UpdateOrgSpendCapFormValues) {
     if (!me)
       throw new Error("User must be logged in to update an organization.");
     if (!meOrganization)
@@ -46,7 +43,6 @@ export function UpdateOrgSpendCapForm({
         spendCapInCents: Number(values.spendCapInCents),
       });
       onSuccess?.();
-      actions.resetForm();
     } catch (e) {
       toast({
         variant: "destructive",

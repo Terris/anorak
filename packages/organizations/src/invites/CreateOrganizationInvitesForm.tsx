@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useMutation } from "convex/react";
-import type { FieldProps, FormikHelpers } from "formik";
+import type { FieldProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import { api } from "@repo/convex";
 import { Button, LoadingBox, Text, Textarea } from "@repo/ui";
@@ -35,10 +35,7 @@ export function CreateOrganizationInvitesForm({
     api.organizationInvites.sessionedCreateManyAsOrgOwner
   );
 
-  async function onSubmit(
-    values: CreateOrganizationInvitesFormValues,
-    actions: FormikHelpers<CreateOrganizationInvitesFormValues>
-  ) {
+  async function onSubmit(values: CreateOrganizationInvitesFormValues) {
     if (!me)
       throw new Error("User must be logged in to create an organization.");
     try {
@@ -47,7 +44,6 @@ export function CreateOrganizationInvitesForm({
         organizationId: orgId as OrganizationId,
       });
       onSuccess?.();
-      actions.resetForm();
     } catch (e) {
       toast({
         variant: "destructive",
