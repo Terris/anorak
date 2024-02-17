@@ -12,7 +12,7 @@ export const systemSendOrgInviteEmailToUser = internalAction({
     inviteToken: v.id("organizationInvites"),
   },
   handler: async (ctx, { toEmail, orgName, inviteToken }) => {
-    const inviteLink = `${process.env.WEB_CLIENT_URL}/rsvp/${inviteToken}`;
+    const inviteLink = `${process.env.NEXT_PUBLIC_SITE_URL}/rsvp/${inviteToken}`;
     const inviteEmailResponse = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL ?? "invites@getcyclical.co",
       to: toEmail,
