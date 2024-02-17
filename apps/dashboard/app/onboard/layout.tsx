@@ -1,7 +1,7 @@
 "use client";
 
 import { Text } from "@repo/ui";
-import { MeOrganizationProvider } from "@repo/organizations";
+import { MeOrganizationProvider } from "@repo/organizations/context";
 
 export default function OnboardLayout({
   children,

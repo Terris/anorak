@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { api } from "@repo/convex";
 import type { OrganizationInviteId } from "../types";
 
-export function useInviteFromParams() {
+export function useGetInviteWithTokenParam() {
   const { inviteToken } = useParams();
 
   const invite = useQuery(api.organizationInvites.publicFindOneByInviteToken, {

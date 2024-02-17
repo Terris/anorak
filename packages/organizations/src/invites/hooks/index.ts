@@ -1,1 +1,1 @@
-export * from "./useInviteFromParams";
+export * from "./useGetInviteWithTokenParam";

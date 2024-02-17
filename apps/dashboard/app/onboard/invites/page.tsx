@@ -5,7 +5,7 @@ import { LoadingBox, Text } from "@repo/ui";
 import { CreateOrganizationInvitesForm } from "@repo/organizations/invites";
 import { useMeOrganizationContext } from "@repo/organizations/context";
 import {
-  useOrganizationUserAsMe,
+  useGetOrganizationUserAsMe,
   useUpdateOrganizationUserAsMe,
 } from "@repo/organizations/users/hooks";
 
@@ -16,7 +16,7 @@ export default function OnboardInvitesPage() {
     useMeOrganizationContext();
 
   const { isLoading: orgUserIsLoading, organizationUser } =
-    useOrganizationUserAsMe({ organizationId: meOrganization?._id });
+    useGetOrganizationUserAsMe({ organizationId: meOrganization?._id });
 
   const { isLoading: orgUserMutationIsLoading, updateOrganizationUser } =
     useUpdateOrganizationUserAsMe();

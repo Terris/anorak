@@ -3,7 +3,7 @@ import { api } from "@repo/convex";
 import { useMeContext } from "@repo/auth/context";
 import type { OrganizationId } from "../../types";
 
-export function useOrganizationUserAsMe({
+export function useGetOrganizationUserAsMe({
   organizationId,
 }: {
   organizationId?: OrganizationId;

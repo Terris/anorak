@@ -1,3 +1,3 @@
 export * from "./useCreateOrganizationUserWithInviteAsMe";
-export * from "./useOrganizationUserAsMe";
+export * from "./useGetOrganizationUserAsMe";
 export * from "./useUpdateOrganizationUserAsMe";

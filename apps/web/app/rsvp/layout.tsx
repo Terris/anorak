@@ -1,6 +1,6 @@
 "use client";
 
-import { OrganizationInviteProvider } from "@repo/organizations/invites";
+import { OrganizationInviteProvider } from "@repo/organizations/invites/context";
 
 export default function RsvpLayout({
   children,

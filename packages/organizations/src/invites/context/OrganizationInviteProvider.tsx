@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation";
 import { LoadingScreen } from "@repo/ui";
 import { useMeContext } from "@repo/auth/context";
 import {
-  useOrganizationUserAsMe,
+  useGetOrganizationUserAsMe,
   useUpdateOrganizationUserAsMe,
   useCreateOrganizationUserWithInviteAsMe,
 } from "../../users/hooks";
 import type { OrganizationUserId } from "../../users";
-import { useInviteFromParams } from "../hooks/useInviteFromParams";
+import { useGetInviteWithTokenParam } from "../hooks/useGetInviteWithTokenParam";
 import type {
   OrganizationInviteId,
   OrganizationInviteWithOrgDoc,
@@ -53,7 +53,7 @@ export function OrganizationInviteProvider({
     inviteToken,
     invite,
     isLoading: inviteIsLoading,
-  } = useInviteFromParams();
+  } = useGetInviteWithTokenParam();
 
   // PUSH TO HOME IF NO DB INVITE
   useEffect(() => {
@@ -64,7 +64,7 @@ export function OrganizationInviteProvider({
   }, [invite, inviteIsLoading, router]);
 
   const { isLoading: organizationUserIsLoading, organizationUser } =
-    useOrganizationUserAsMe({
+    useGetOrganizationUserAsMe({
       organizationId: invite?.organizationId,
     });
 
