@@ -45,6 +45,7 @@ export const internalHandleClerkWebhook = internalAction({
         "svix-signature": signature.svixSignature,
       }) as WebhookEvent;
 
+      let handled: boolean;
       // Handle the event
       switch (event.type) {
         case "user.created":
@@ -71,15 +72,18 @@ export const internalHandleClerkWebhook = internalAction({
               name,
               roles: emailIsWhitelisted ? ["user"] : [],
             });
+            handled = true;
           }
           break;
-        default:
-          null;
+        default: {
+          handled = false;
+        }
       }
 
       await ctx.runMutation(internal.webhooks.systemLogWebhook, {
         from: "clerk",
         body: event,
+        handled,
       });
 
       return { success: true };

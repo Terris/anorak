@@ -27,6 +27,7 @@ import type * as organizationUsers from "../organizationUsers.js";
 import type * as organizations from "../organizations.js";
 import type * as roomUsers from "../roomUsers.js";
 import type * as rooms from "../rooms.js";
+import type * as stripeActions from "../stripeActions.js";
 import type * as userActions from "../userActions.js";
 import type * as userWhitelists from "../userWhitelists.js";
 import type * as users from "../users.js";
@@ -54,6 +55,7 @@ declare const fullApi: ApiFromModules<{
   organizations: typeof organizations;
   roomUsers: typeof roomUsers;
   rooms: typeof rooms;
+  stripeActions: typeof stripeActions;
   userActions: typeof userActions;
   userWhitelists: typeof userWhitelists;
   users: typeof users;

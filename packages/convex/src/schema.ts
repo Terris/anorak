@@ -9,9 +9,19 @@ export default defineSchema({
     spendCapInCents: v.optional(v.number()),
     stripeCustomerId: v.optional(v.string()),
     stripePaymentMethodId: v.optional(v.string()),
+    paymentMethodDetails: v.optional(
+      v.object({
+        type: v.string(),
+        brand: v.optional(v.string()),
+        last4: v.optional(v.string()),
+        expMonth: v.optional(v.number()),
+        expYear: v.optional(v.number()),
+      })
+    ),
   })
     .index("by_slug", ["slug"])
-    .index("by_owner_id", ["ownerId"]),
+    .index("by_owner_id", ["ownerId"])
+    .index("by_stripe_customer_id", ["stripeCustomerId"]),
   organizationInvites: defineTable({
     email: v.string(),
     organizationId: v.id("organizations"),
@@ -52,5 +62,6 @@ export default defineSchema({
   webhookLogs: defineTable({
     body: v.any(),
     from: v.string(),
+    handled: v.optional(v.boolean()),
   }),
 });

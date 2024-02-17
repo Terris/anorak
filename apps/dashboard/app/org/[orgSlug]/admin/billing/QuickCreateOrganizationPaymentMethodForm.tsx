@@ -31,10 +31,11 @@ const stripePromise = loadStripe(
 
 export function QuickCreateOrganizationPaymentMethodForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { meOrganization } = useMeOrganizationContext();
 
   const stripeElementsOptions: StripeElementsOptions = {
     mode: "subscription",
-    amount: 100,
+    amount: meOrganization?.spendCapInCents ?? 100,
     currency: "usd",
     appearance: {
       theme: "stripe",
@@ -133,6 +134,7 @@ function PaymentMethodForm({
           },
           redirect: "if_required",
         });
+
       const stripePaymentMethodId = setupIntent?.payment_method;
       if (confirmSetupError || !stripePaymentMethodId) {
         throw new Error(

@@ -136,11 +136,39 @@ export const systemGetOrganizationById = internalQuery({
 });
 
 /**
+ * Get the organization by stripe customer id.
+ * @param stripeCustomerId - The stripe customer id.
+ */
+export const systemGetByStripeCustomerId = internalQuery({
+  args: { stripeCustomerId: v.string() },
+  handler: async (ctx, { stripeCustomerId }) => {
+    return ctx.db
+      .query("organizations")
+      .withIndex("by_stripe_customer_id", (q) =>
+        q.eq("stripeCustomerId", stripeCustomerId)
+      )
+      .first();
+  },
+});
+
+/**
  * Update an organization by its id.
  * @param id - The organization id.
  */
 export const systemUpdateById = internalMutation({
-  args: { id: v.id("organizations"), stripeCustomerId: v.optional(v.string()) },
+  args: {
+    id: v.id("organizations"),
+    stripeCustomerId: v.optional(v.string()),
+    paymentMethodDetails: v.optional(
+      v.object({
+        type: v.optional(v.string()),
+        brand: v.optional(v.string()),
+        last4: v.optional(v.string()),
+        expMonth: v.optional(v.number()),
+        expYear: v.optional(v.number()),
+      })
+    ),
+  },
   handler: async (ctx, { id, stripeCustomerId }) => {
     return ctx.db.patch(id, { stripeCustomerId });
   },
