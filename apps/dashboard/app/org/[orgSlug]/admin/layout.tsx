@@ -2,12 +2,9 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { Button, LoadingScreen } from "@repo/ui";
-import { PrivatePageWrapper } from "@repo/auth";
-import {
-  MeOrganizationProvider,
-  useMeOrganizationContext,
-} from "@repo/organizations/context";
+import { useMeOrganizationContext } from "@repo/organizations/context";
 import { type OrganizationDoc } from "@repo/organizations";
+import { useEffect } from "react";
 
 export default function OrgDashboardLayout({
   children,
@@ -15,19 +12,27 @@ export default function OrgDashboardLayout({
   children: React.ReactNode;
   params: { myOrg: OrganizationDoc | undefined | null };
 }) {
+  const router = useRouter();
+  const { meOrganization, isLoading } = useMeOrganizationContext();
+
+  useEffect(() => {
+    if (isLoading || !meOrganization) return;
+    if (!meOrganization.meIsOwner) {
+      router.replace(`/org/${meOrganization.slug}`);
+    }
+  }, [isLoading, meOrganization, router]);
+
+  if (isLoading || !meOrganization) return <LoadingScreen />;
+
   return (
-    <PrivatePageWrapper>
-      <MeOrganizationProvider>
-        <div className="w-full p-8 flex flex-col md:flex-row md:gap-16">
-          <DashboardNav />
-          <div className="w-5/6">{children}</div>
-        </div>
-      </MeOrganizationProvider>
-    </PrivatePageWrapper>
+    <div className="w-full p-8 flex flex-col md:flex-row md:gap-16">
+      <AdminDashboardNav />
+      <div className="w-5/6">{children}</div>
+    </div>
   );
 }
 
-function DashboardNav() {
+function AdminDashboardNav() {
   const router = useRouter();
   const pathname = usePathname();
   const { isLoading, meOrganization } = useMeOrganizationContext();

@@ -1,9 +1,24 @@
-import { Text } from "@repo/ui";
+"use client";
 
-export default function OrgDashboardPage() {
+import { PrivatePageWrapper } from "@repo/auth";
+import { MeOrganizationProvider } from "@repo/organizations/context";
+import { type OrganizationDoc } from "@repo/organizations";
+import { DashboardNav } from "./DashboardNav";
+
+export default function OrgDashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+  params: { myOrg: OrganizationDoc | undefined | null };
+}) {
   return (
-    <div className="w-full p-8">
-      <Text>Org Dashboard</Text>
-    </div>
+    <PrivatePageWrapper>
+      <MeOrganizationProvider>
+        <div className="w-full p-8 flex flex-col md:flex-row md:gap-16">
+          <DashboardNav />
+          <div className="w-5/6">{children}</div>
+        </div>
+      </MeOrganizationProvider>
+    </PrivatePageWrapper>
   );
 }
