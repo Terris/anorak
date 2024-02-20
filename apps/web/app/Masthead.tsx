@@ -28,7 +28,6 @@ export function Masthead() {
         ) : (
           <LogoLight width={100} />
         )}
-        {/* <Text className="font-tuna ml-2 font-black">Cyclical</Text> */}
       </Link>
 
       {Boolean(isHomePath) && (

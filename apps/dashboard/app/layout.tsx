@@ -6,8 +6,8 @@ import AppProviders from "./AppProviders";
 import { Masthead } from "./Masthead";
 
 export const metadata = {
-  title: "Cyclical",
-  description: "Work therapy and mentorship sessions.",
+  title: "Anorak",
+  description: "Live video business infrastructure",
 };
 
 interface RootLayoutProps {

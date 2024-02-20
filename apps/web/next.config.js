@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cyclical.s3.amazonaws.com",
+        hostname: "anorak.s3.amazonaws.com",
       },
     ],
   },

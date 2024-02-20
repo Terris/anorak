@@ -6,8 +6,8 @@ import "./app.css";
 import "@repo/ui/globals.css";
 
 export const metadata = {
-  title: "Cyclical",
-  description: "Work therapy and mentorship sessions.",
+  title: "Anorak",
+  description: "Live video business infrastructure.",
 };
 
 interface RootLayoutProps {
