@@ -1,5 +1,5 @@
 {
-  "name": "cyclical-mono",
+  "name": "anorak",
   "private": true,
   "scripts": {
     "build": "turbo build",

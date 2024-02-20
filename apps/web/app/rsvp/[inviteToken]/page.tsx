@@ -2,11 +2,11 @@
 
 import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { useOrganizationInviteContext } from "@repo/organizations/invites/context";
 import { Button, LoadingScreen, Text } from "@repo/ui";
 import { useMeContext } from "@repo/auth/context";
 import { SignUpButton } from "@clerk/nextjs";
-import Link from "next/link";
 
 export default function RsvpPage() {
   const router = useRouter();
